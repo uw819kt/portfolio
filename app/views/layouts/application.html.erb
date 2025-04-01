@@ -9,7 +9,6 @@
 
     <%= yield :head %>
 
-    <link rel="manifest" href="/manifest.json">
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
@@ -18,6 +17,10 @@
   </head>
 
   <body>
+    <div>
+    <%= link_to "有給休暇取得一覧", paid_leaves_path %>
+    <%= link_to "有給休暇取得申請", new_request_path %>
+    </div>
     <%= yield %>
   </body>
 </html>

@@ -1,0 +1,2 @@
+class DriveAfLogController < ApplicationController
+end
