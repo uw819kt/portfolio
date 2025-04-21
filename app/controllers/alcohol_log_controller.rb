@@ -1,2 +1,0 @@
-class AlcoholLogController < ApplicationController
-end

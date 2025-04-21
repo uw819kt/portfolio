@@ -1,2 +1,0 @@
-class DriveBeLogController < ApplicationController
-end

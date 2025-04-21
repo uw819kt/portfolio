@@ -7,115 +7,96 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-
-admin = User.create!( #arima
+Admin.create!( #arima
   name: "admin",
   email: "admin@example.com",
-  department: 0,
-  password_digest: "password",
-  admin: true
+  password: "password",
+  password_confirmation: "password"
+)
+
+
+manager = User.create!( #arima
+  name: "manager",
+  email: "manager@example.com",
+  department: 0
 )
 
 normal_1 = User.create!( #hamsaki
   name: "normal_1",
   email: "normal_1@example.com",
-  department: 0,
-  password_digest: "",
-  admin: false
+  department: 0
 )
 
 normal_2 = User.create!( #taguti
   name: "normal_2",
   email: "normal_2@example.com",
-  department: 1,
-  password_digest: "",
-  admin: false
+  department: 1
 )
 
 normal_3 = User.create!( #etou
   name: "normal_3",
   email: "normal_3@example.com",
-  department: 1,
-  password_digest: "",
-  admin: false
+  department: 1
 )
 
 normal_4 = User.create!( #akimoto
   name: "normal_4",
   email: "normal_4@example.com",
-  department: 2,
-  password_digest: "",
-  admin: false
+  department: 2
 )
 
 normal_5 = User.create!( #isihara
   name: "normal_5",
   email: "normal_5@example.com",
-  department: 3,
-  password_digest: "",
-  admin: false
+  department: 3
 )
 
 normal_6 = User.create!( #matubara
   name: "normal_6",
   email: "normal_6@example.com",
-  department: 1,
-  password_digest: "",
-  admin: false
+  department: 1
 )
 
 normal_7 = User.create!( #kawata
   name: "normal_7",
   email: "normal_7@example.com",
-  department: 3,
-  password_digest: "",
-  admin: false
+  department: 3
 )
 
 normal_8 = User.create!( #tutiya
   name: "normal_8",
   email: "normal_8@example.com",
-  department: 3,
-  password_digest: "",
-  admin: false
+  department: 3
 )
 
 normal_9 = User.create!( #hurutani
   name: "normal_9",
   email: "normal_9@example.com",
-  department: 4,
-  password_digest: "",
-  admin: false
+  department: 4
 )
 
 normal_10 = User.create!( #simizu
   name: "normal_10",
   email: "normal_9@example.com",
-  department: 4,
-  password_digest: "",
-  admin: false
+  department: 4
 )
 
 normal_11 = User.create!( #asano
   name: "normal_11",
   email: "normal_11@example.com",
-  department: 5,
-  password_digest: "",
-  admin: false
+  department: 5
 )
 
 normal_12 = User.create!( #nakayama
   name: "normal_12",
   email: "normal_12@example.com",
-  department: 5,
-  password_digest: "",
-  admin: false
+  department: 5
 )
 
-admin_car = Car.create( #arima
+manager_car = Car.create( #arima
   company_car: "下関430た5533",
   private_car: "",
-  user_id: admin.id
+  user_id: manager.id
 )
 
 normal_car_1 = Car.create( #hamasaki
@@ -190,7 +171,7 @@ normal_car_12 = Car.create( #nakayama
   user_id: normal_12.id
 )
 
-normal_pl_1 = PaidLeave.create( #hamasaki
+normal_pl_1 = PaidLeave.create!( #hamasaki
   joining_date: 7.years.ago.change(month: 4, day: 1),
   base_date: 7.years.ago.change(month: 4, day: 1),
   part_time: false,
@@ -245,7 +226,7 @@ normal_pl_7 = PaidLeave.create( #kawata
   user_id: normal_7.id
 )
 
-normal_pl_8 = PaidLeave.create( #turiya
+normal_pl_8 = PaidLeave.create( #tutiya
   joining_date: 7.years.ago.change(month: 4, day: 1),
   base_date: 7.years.ago.change(month: 4, day: 1),
   part_time: false,

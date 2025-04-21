@@ -1,2 +1,0 @@
-class DriveAfLogController < ApplicationController
-end

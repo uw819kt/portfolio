@@ -8,7 +8,6 @@ class User < ApplicationRecord
   has_many :drive_af_logs, dependent: :destroy
   
   validates :name, :department, :email, presence: true
-  validates :admin, inclusion: { in: [true, false] }
 
   enum :department, {
     sales: 0, 

@@ -2,11 +2,10 @@ class PaidLeavesController < ApplicationController
   before_action :set_paid_leave, only: %i[ show ]
 
   def index
-    @paid_leaves = PaidLeave.all
+    @paid_leaves = PaidLeave.includes(:user).all
   end
 
   def show
-    @paid_leaves = PaidLeave.all
   end
 
   private
