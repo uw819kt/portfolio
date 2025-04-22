@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+
+  resources :alcohol_logs, only: [:index, :show] do
+    collection do
+      resources :drive_be_logs, only: [:create, :new]
+      resources :drive_af_logs, only: [:create, :new]
+    end
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

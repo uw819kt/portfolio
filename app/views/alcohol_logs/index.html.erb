@@ -1,0 +1,63 @@
+<h1>酒気帯び確認記録表</h1>
+<p class="d-flex justify-content-end">興和電気株式会社</p>
+<!-- date -->
+<!-- search box -->
+
+<table class="table table-striped m-0">
+<tbody>
+    <tr class="table-primary">
+      <td colspan="2"><%= "運転者・車両" %></td>
+      <td colspan="7"><%= "運転前" %></td>
+      <td colspan="7"><%= "運転後" %></td>
+      <td colspan="1"><%= "確認欄" %></td>
+    </tr>
+
+    <tr>
+      <td><%= "運転者名" %></td>
+      <td><%= "車両番号等" %></td>
+      <td><%= "確認年月日" %></td>
+      <td><%= "確認方法" %></td>
+      <td><%= "検知器使用" %></td>
+      <td><%= "測定結果（mg/l）" %></td>
+      <td><%= "体調等（状態）" %></td>
+      <td><%= "指示事項/その他" %></td>
+      <td><%= "確認者" %></td>
+      <td><%= "確認年月日" %></td>
+      <td><%= "確認方法" %></td>
+      <td><%= "検知器使用" %></td>
+      <td><%= "測定結果（mg/l）" %></td>
+      <td><%= "体調等（状態）" %></td>
+      <td><%= "指示事項/その他" %></td>
+      <td><%= "確認者" %></td>
+      <td><%= "安全運転管理者" %></td>
+    </tr>
+
+    <% @drive_be_logs.each do |log| %>
+      <tr>
+        <td><%= log.user.name %></td>
+        <td><%= log.user.car&.private_car.presence || log.user.car&.company_car || "未登録" %></td>        <td><%= log.check_time %></td>
+        <td><%= log.confirmation %></td>
+        <td><%= log.detector_used ? '有' : '無' %></td>
+        <td><%= log.result %></td>
+        <td><%= log.condition %></td>
+        <td><%= log.log_remarks %></td>
+        <td></td> <!-- 空欄 -->
+      </tr>
+    <% end %>
+          
+    <% @drive_af_logs.each do |log| %>
+      <tr>
+        <td><%= log.check_time %></td>
+        <td><%= log.confirmation %></td>
+        <td><%= log.detector_used ? '有' : '無' %></td>
+        <td><%= log.result %></td>
+        <td><%= log.condition %></td>
+        <td><%= log.log_remarks %></td>
+        <td></td> <!-- 空欄 -->
+        <td></td> <!-- 空欄 -->
+
+        <td><%= link_to "詳細", alcohol_log_path(log.user.id), class: "btn btn-outline-primary btn-sm" %></td>
+      </tr>
+    <% end %>     
+  </tbody>
+</table>
