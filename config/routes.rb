@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  devise_for :admins
+  scope :paid_leaves, only: [:index] do
+    resources :requests, only: [:create, :new]
+    resources :approval, only: [:edit, :update, :show]
+  end
+  resources :alcohol_logs, only: [:index, :show, :new, :create, :edit, :update]
+  root to: 'paid_leaves#index'
 
   resources :alcohol_logs, only: [:index, :show] do
     collection do
@@ -19,3 +26,5 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 end
+# ローカルでつなぐとき
+# https://cucumber.localhost:3000

@@ -1,14 +1,13 @@
 class User < ApplicationRecord
-  belongs_to :paid_leave, dependent: :destroy
+  has_one :paid_leave, dependent: :destroy
   has_many :requests, dependent: :destroy
-  belongs_to :grant, dependent: :destroy
+  has_one :grant, dependent: :destroy
   has_many :approvals, dependent: :destroy 
-  belongs_to :car
+  belongs_to :car, optional: true
   has_many :drive_be_logs, dependent: :destroy 
   has_many :drive_af_logs, dependent: :destroy
   
   validates :name, :department, :email, presence: true
-  validates :admin, inclusion: { in: [true, false] }
 
   enum :department, {
     sales: 0, 
