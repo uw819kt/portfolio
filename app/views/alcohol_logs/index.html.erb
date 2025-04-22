@@ -1,0 +1,82 @@
+<h1>酒気帯び確認記録表</h1>
+<p class="d-flex justify-content-end">興和電気株式会社</p>
+<!-- date -->
+<!-- search box -->
+
+<table class="table table-striped m-0">
+<tbody>
+    <tr class="table-primary">
+      <td colspan="2"><%= "運転者・車両" %></td>
+      <td colspan="7"><%= "運転前" %></td>
+      <td colspan="7"><%= "運転後" %></td>
+      <td colspan="1"><%= "確認欄" %></td>
+    </tr>
+
+    <tr>
+      <td><%= "運転者名" %></td>
+      <td><%= "車両番号等" %></td>
+      <td><%= "確認年月日" %></td>
+      <td><%= "確認方法" %></td>
+      <td><%= "検知器使用" %></td>
+      <td><%= "測定結果（mg/l）" %></td>
+      <td><%= "体調等（状態）" %></td>
+      <td><%= "指示事項/その他" %></td>
+      <td><%= "確認者" %></td>
+      <td><%= "確認年月日" %></td>
+      <td><%= "確認方法" %></td>
+      <td><%= "検知器使用" %></td>
+      <td><%= "測定結果（mg/l）" %></td>
+      <td><%= "体調等（状態）" %></td>
+      <td><%= "指示事項/その他" %></td>
+      <td><%= "確認者" %></td>
+      <td><%= "安全運転管理者" %></td>
+    </tr>
+
+    <% User.includes(:drive_be_logs, :drive_af_logs).each do |user| %>
+      <% be_log = user.drive_be_logs.find_by(check_time: Date.current.all_day) %>
+      <% af_log = user.drive_af_logs.find_by(check_time: Date.current.all_day) %>
+    
+      <tr>
+        <td><%= user.name %></td>
+        <td>
+          <% if be_log&.car.present? %>
+            <%= be_log.car.private_car.presence || be_log.car.company_car %>
+          <% else %>
+            <span class="text-danger">-</span>
+          <% end %>
+        </td>
+    
+        <%# 運転前ログがあるか？ %>
+        <% if be_log %>
+          <td><%= be_log.check_time %></td>
+          <td><%= be_log.confirmation %></td>
+          <td><%= be_log.detector_used ? '有' : '無' %></td>
+          <td><%= be_log.result %></td>
+          <td><%= be_log.condition %></td>
+          <td><%= be_log.log_remarks %></td>
+          <td></td>
+        <% else %>
+          <td colspan="7">未入力</td>
+          <td></td>
+        <% end %>
+    
+        <%# 運転後ログがあるか？ %>
+        <% if af_log %>
+          <td><%= af_log.check_time %></td>
+          <td><%= af_log.confirmation %></td>
+          <td><%= af_log.detector_used ? '有' : '無' %></td>
+          <td><%= af_log.result %></td>
+          <td><%= af_log.condition %></td>
+          <td><%= af_log.log_remarks %></td>
+          <td></td>
+          <td></td>
+          <td><%= link_to "詳細", alcohol_log_path(user.id), class: "btn btn-outline-primary btn-sm" %></td>
+        <% else %>
+          <td colspan="7">未入力</td>
+          <td></td>
+          <td></td>
+        <% end %>
+      </tr>
+    <% end %>     
+  </tbody>
+</table>
