@@ -9,7 +9,7 @@
     </div>
   <% end %>
 
-  <h1>運転前酒気帯び記録入力フォーム</h1>
+  <h1>酒気帯び記録入力フォーム（運転前）</h1>
 
     <div>
       <%= form.label :user_id %></br>
@@ -27,22 +27,22 @@
     </div>
 
     <div>
-      <%= form.label :detector_used %>
+      <%= form.label :detector_used %></br>
       <%= form.check_box :detector_used, {checked: true}, true, false  %>
     </div>
 
     <div>
-      <%= form.label :result %>
+      <%= form.label :result %></br>
       <%= form.text_field :result, class: "form-control", placeholder: "例）0.00" %>
     </div>
 
     <div>
-      <%= form.label :condition %>
+      <%= form.label :condition %></br>
       <%= form.select :condition, @drive_be_log.class.conditions.keys, {}, class: "form-control" %>
     </div>
 
     <div>
-      <%= form.label :log_remarks %>
+      <%= form.label :log_remarks %></br>
       <%= form.text_area :log_remarks, class: "form-control", placeholder: "特記事項あれば記入" %>
     </div>
 

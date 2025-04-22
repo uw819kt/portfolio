@@ -1,2 +1,77 @@
-<h1>AlcoholLogs#show</h1>
-<p>Find me in app/views/alcohol_logs/show.html.erb</p>
+<h1>酒気帯び確認記録表（個人）</h1>
+<p class="d-flex justify-content-end">興和電気株式会社</p>
+
+<p class="d-flex justify-content-end text-decoration-underline"><%= "部署" %>&nbsp;&nbsp;<%= "部署の名前" %></p>
+<p class="d-flex justify-content-end text-decoration-underline"><%= "氏名" %>&nbsp;&nbsp;<%= "氏名" %></p>
+
+<!-- date -->
+
+<table class="table table-striped m-0">
+<tbody>
+    <tr class="table-primary">
+      <td colspan="7"><%= "運転前" %></td>
+      <td colspan="7"><%= "運転後" %></td>
+      <td colspan="1"><%= "確認欄" %></td>
+    </tr>
+
+    <tr>
+      <td><%= "確認年月日" %></td>
+      <td><%= "確認方法" %></td>
+      <td><%= "検知器使用" %></td>
+      <td><%= "測定結果（mg/l）" %></td>
+      <td><%= "体調等（状態）" %></td>
+      <td><%= "指示事項/その他" %></td>
+      <td><%= "確認者" %></td>
+      <td><%= "確認年月日" %></td>
+      <td><%= "確認方法" %></td>
+      <td><%= "検知器使用" %></td>
+      <td><%= "測定結果（mg/l）" %></td>
+      <td><%= "体調等（状態）" %></td>
+      <td><%= "指示事項/その他" %></td>
+      <td><%= "確認者" %></td>
+      <td><%= "安全運転管理者" %></td>
+    </tr>
+
+    <% (0..29).each do |i| %>
+      <% day = Time.zone.today - i.days %>
+      <% be_log = @drive_be_log.find { |log| log.check_time.to_date == day } %>
+      <% af_log = @drive_af_log.find { |log| log.check_time.to_date == day } %>
+    
+      <tr>
+        <%# 運転前ログがあるか？ %>
+        <% if be_log %>
+          <td><%= be_log.check_time %></td>
+          <td><%= be_log.confirmation %></td>
+          <td><%= be_log.detector_used ? '有' : '無' %></td>
+          <td><%= be_log.result %></td>
+          <td><%= be_log.condition %></td>
+          <td><%= be_log.log_remarks %></td>
+          <td></td><!-- 空欄 -->
+        <% else %>
+          <td colspan="7"></td>
+          <td></td>
+        <% end %>
+    
+        <%# 運転後ログがあるか？ %>
+        <% if af_log %>
+          <td><%= af_log.check_time %></td>
+          <td><%= af_log.confirmation %></td>
+          <td><%= af_log.detector_used ? '有' : '無' %></td>
+          <td><%= af_log.result %></td>
+          <td><%= af_log.condition %></td>
+          <td><%= af_log.log_remarks %></td>
+          <td></td><!-- 空欄 -->
+          <td></td><!-- 空欄 -->
+          <td><%= link_to "編集（運転前）", "#", class: "btn btn-outline-primary btn-sm" %></td>
+          <td><%= link_to "編集（運転後）", "#", class: "btn btn-outline-primary btn-sm" %></td>
+        <% else %>
+          <td colspan="7"></td>
+          <td></td>
+          <td></td>
+        <% end %>
+      </tr>
+    <% end %>     
+  </tbody>
+</table>
+
+<%= link_to "一覧に戻る", alcohol_logs_path, class: "text-decoration-none" %>

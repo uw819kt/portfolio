@@ -32,31 +32,50 @@
       <td><%= "安全運転管理者" %></td>
     </tr>
 
-    <% @drive_be_logs.each do |log| %>
+    <% User.includes(:drive_be_logs, :drive_af_logs).each do |user| %>
+      <% be_log = user.drive_be_logs.find_by(check_time: Date.current.all_day) %>
+      <% af_log = user.drive_af_logs.find_by(check_time: Date.current.all_day) %>
+    
       <tr>
-        <td><%= log.user.name %></td>
-        <td><%= log.user.car&.private_car.presence || log.user.car&.company_car || "未登録" %></td>        <td><%= log.check_time %></td>
-        <td><%= log.confirmation %></td>
-        <td><%= log.detector_used ? '有' : '無' %></td>
-        <td><%= log.result %></td>
-        <td><%= log.condition %></td>
-        <td><%= log.log_remarks %></td>
-        <td></td> <!-- 空欄 -->
-      </tr>
-    <% end %>
-          
-    <% @drive_af_logs.each do |log| %>
-      <tr>
-        <td><%= log.check_time %></td>
-        <td><%= log.confirmation %></td>
-        <td><%= log.detector_used ? '有' : '無' %></td>
-        <td><%= log.result %></td>
-        <td><%= log.condition %></td>
-        <td><%= log.log_remarks %></td>
-        <td></td> <!-- 空欄 -->
-        <td></td> <!-- 空欄 -->
-
-        <td><%= link_to "詳細", alcohol_log_path(log.user.id), class: "btn btn-outline-primary btn-sm" %></td>
+        <td><%= user.name %></td>
+        <td>
+          <% if be_log&.car.present? %>
+            <%= be_log.car.private_car.presence || be_log.car.company_car %>
+          <% else %>
+            <span class="text-danger">-</span>
+          <% end %>
+        </td>
+    
+        <%# 運転前ログがあるか？ %>
+        <% if be_log %>
+          <td><%= be_log.check_time %></td>
+          <td><%= be_log.confirmation %></td>
+          <td><%= be_log.detector_used ? '有' : '無' %></td>
+          <td><%= be_log.result %></td>
+          <td><%= be_log.condition %></td>
+          <td><%= be_log.log_remarks %></td>
+          <td></td>
+        <% else %>
+          <td colspan="7">未入力</td>
+          <td></td>
+        <% end %>
+    
+        <%# 運転後ログがあるか？ %>
+        <% if af_log %>
+          <td><%= af_log.check_time %></td>
+          <td><%= af_log.confirmation %></td>
+          <td><%= af_log.detector_used ? '有' : '無' %></td>
+          <td><%= af_log.result %></td>
+          <td><%= af_log.condition %></td>
+          <td><%= af_log.log_remarks %></td>
+          <td></td>
+          <td></td>
+          <td><%= link_to "詳細", alcohol_log_path(user.id), class: "btn btn-outline-primary btn-sm" %></td>
+        <% else %>
+          <td colspan="7">未入力</td>
+          <td></td>
+          <td></td>
+        <% end %>
       </tr>
     <% end %>     
   </tbody>
