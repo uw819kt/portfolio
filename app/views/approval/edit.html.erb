@@ -1,0 +1,41 @@
+<h1>有給取得申請編集</h1>
+  <%= form_with(model: @request, url: requests_path, local: true) do |form| %>
+
+    <% if @request.errors.any? %>
+      <div class="alert alert-danger" role="alert">
+        <ul>
+          <% @request.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= form.label :user_id %><br>
+      <%= form.collection_select :user_id, User.all, :id, :name, prompt: "ユーザーを選択" %>
+    </div>
+
+    <div>
+      <%= form.label :request_date %><br>
+      <%= form.date_field :request_date %>
+    </div>
+
+    <div>
+      <%= form.label :acquisition_date %><br>
+      <%= form.date_field :acquisition_date %>
+    </div>
+
+    <div>
+      <%= form.label :paid_remarks %><br>
+      <%= form.text_area :paid_remarks, placeholder: "特記事項あれば記入 例）介護休暇" %>
+    </div>
+
+    <div>
+      <%= form.submit %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= link_to "有給休暇一覧画面に戻る", root_path %>
+  </div>

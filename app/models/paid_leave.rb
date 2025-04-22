@@ -8,10 +8,11 @@ class PaidLeave < ApplicationRecord
     :classification, presence: true
     
   enum :classification, {
-    "4days_w": 0,
-    "3days_w": 1,
-    "2days_w": 2,
-    "1days_w": 3,
-    "others": 4
+    "full-time": 0,
+    "4days_w": 1,
+    "3days_w": 2,
+    "2days_w": 3,
+    "1days_w": 4,
+    "others": 5
     }
 end
