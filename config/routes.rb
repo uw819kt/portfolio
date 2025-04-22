@@ -9,8 +9,8 @@ Rails.application.routes.draw do
 
   resources :alcohol_logs, only: [:index, :show] do
     collection do
-      resources :drive_be_logs, only: [:create, :new]
-      resources :drive_af_logs, only: [:create, :new]
+      resources :drive_be_logs, only: [:create, :new, :edit, :update]
+      resources :drive_af_logs, only: [:create, :new, :edit, :update]
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

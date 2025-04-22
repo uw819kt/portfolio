@@ -10,8 +10,10 @@
 <tbody>
     <tr class="table-primary">
       <td colspan="7"><%= "運転前" %></td>
+      <td></td>
       <td colspan="7"><%= "運転後" %></td>
       <td colspan="1"><%= "確認欄" %></td>
+      <td></td>
     </tr>
 
     <tr>
@@ -22,6 +24,7 @@
       <td><%= "体調等（状態）" %></td>
       <td><%= "指示事項/その他" %></td>
       <td><%= "確認者" %></td>
+      <td></td>
       <td><%= "確認年月日" %></td>
       <td><%= "確認方法" %></td>
       <td><%= "検知器使用" %></td>
@@ -47,6 +50,7 @@
           <td><%= be_log.condition %></td>
           <td><%= be_log.log_remarks %></td>
           <td></td><!-- 空欄 -->
+          <td><%= link_to "編集（運転前）", edit_drive_be_log_path(be_log.id), class: "btn btn-outline-primary btn-sm" %></td>
         <% else %>
           <td colspan="7"></td>
           <td></td>
@@ -62,8 +66,7 @@
           <td><%= af_log.log_remarks %></td>
           <td></td><!-- 空欄 -->
           <td></td><!-- 空欄 -->
-          <td><%= link_to "編集（運転前）", "#", class: "btn btn-outline-primary btn-sm" %></td>
-          <td><%= link_to "編集（運転後）", "#", class: "btn btn-outline-primary btn-sm" %></td>
+          <td><%= link_to "編集（運転後）", edit_drive_af_log_path(af_log.id), class: "btn btn-outline-primary btn-sm" %></td>
         <% else %>
           <td colspan="7"></td>
           <td></td>
