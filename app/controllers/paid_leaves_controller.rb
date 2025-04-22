@@ -5,9 +5,6 @@ class PaidLeavesController < ApplicationController
     @paid_leaves = PaidLeave.includes(:user).all
   end
 
-  def show
-  end
-
   private
   def set_paid_leave
     @paid_leave = PaidLeave.find(params[:id])

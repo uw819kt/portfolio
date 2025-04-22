@@ -1,4 +1,4 @@
-<h1><%= "有給休暇取得一覧画面" %></h1>
+<h1>有給休暇取得一覧画面</h1>
 
 <%= Date.today %>
 
@@ -22,10 +22,10 @@
     </tr>
   </thead>
 
-<% @paid_leaves.each do |paid_leave| %>
+<% @paid_leaves.each_with_index do |paid_leave, index| %>
   <tbody>
     <tr>
-      <td></td>
+      <td><%= index + 1 %></td>
       <td><%= paid_leave.user.name %></td>
       <td></td>
       <td></td>
@@ -45,7 +45,7 @@
       <td></td>
       <td></td>
       <td>
-        <%= link_to "詳細" %>
+        <%= link_to "詳細", request_path(paid_leave.id) %>
       </td>
     </tr>
   </tbody> 

@@ -1,0 +1,63 @@
+<h1><%= Date.today.year %>年&nbsp;有給休暇取得状況詳細（申請中）</h1>
+
+<p class="text-end text-decoration-underline"><%= "部署" %>&nbsp;&nbsp;<%= @user.department %></p>
+<p class="text-end text-decoration-underline"><%= "氏名" %>&nbsp;&nbsp;<%= @user.name %></p>
+
+<table class="table table-bordered mb-0">
+  <tbody>
+      <tr>
+        <td colspan="2" class="table-primary"><%= "基準日" %></td>
+        <td colspan="4"><%= @paid_leave.base_date %></td>
+      </tr>
+      <tr>
+        <td colspan="2" class="table-primary"><%= "有効期間" %></td>
+        <td colspan="4"><%= "#{@paid_leave.base_date}～#{@paid_leave.base_date.next_year - 1}" %></td>
+      </tr>
+      <tr>
+        <td ><%= "合計日数" %></td>
+        <td></td>
+
+        <td><%= "前年度繰越分" %></td>
+        <td></td>
+
+        <td><%= "今年度付与分" %></td>
+        <td></td>
+      </tr>
+  <tbody>
+</table>
+<table class="table table-striped">
+  <thead>
+    <tr class="table-primary">
+      <th>No</th>
+      <th><%= "届出年月日" %></th>
+      <th><%= "取得日" %></th>
+      <th><%= "残日数" %></th>
+      <th><%= "本人印" %></th>
+      <th><%= "承認印" %></th>
+      <th><%= "備考" %></th>
+      <th><%= "有給適用確認欄" %></th>      
+    </tr>
+  </thead>
+    
+  <tbody>
+    <% @request.each_with_index do |request, index| %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><%= request.request_date %></td>
+        <td><%= request.acquisition_date %></td>
+        <td id="target"><%= "合計日数" %></td>
+        <td></td> <!-- 空のセル -->
+        <td></td> <!-- 空のセル -->
+        <td><%= request.paid_remarks %></td>
+        <td><%= request.approval&.paid_applicable ? '適用' : '未適用' %></td>
+        <td><%= link_to "有給承認・確認", edit_approval_path(request.id) %></td>
+      </tr>      
+    <% end %>
+  </tbody>
+</table>
+  
+<div>  
+
+  <%= link_to "戻る", root_path, class: "text-decoration-none" %> |
+  <%= link_to "有給休暇取得状況詳細（承認済）", "#", class: "text-decoration-none" %>
+</div>

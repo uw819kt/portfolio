@@ -1,10 +1,10 @@
 <h1>有給取得申請編集</h1>
-  <%= form_with(model: @request, url: requests_path, local: true) do |form| %>
+  <%= form_with(model: @approval, url: approval_path(@approval), local: true) do |form| %>
 
-    <% if @request.errors.any? %>
+    <% if @approval.errors.any? %>
       <div class="alert alert-danger" role="alert">
         <ul>
-          <% @request.errors.each do |error| %>
+          <% @approval.errors.each do |error| %>
             <li><%= error.full_message %></li>
           <% end %>
         </ul>

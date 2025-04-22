@@ -1,6 +1,7 @@
 class Approval < ApplicationRecord
   belongs_to :paid_leave
   belongs_to :user
+  belongs_to :request
   
   validates :request_date, :acquisition_date, 
     :paid_applicable, :paid_confirm, presence: true

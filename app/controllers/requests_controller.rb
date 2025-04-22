@@ -1,4 +1,11 @@
 class RequestsController < ApplicationController
+
+  def show
+    @paid_leave = PaidLeave.find(params[:id])
+    @user = @paid_leave.user
+    @request = @user.requests
+  end
+
   def new
     @request = Request.new
   end
