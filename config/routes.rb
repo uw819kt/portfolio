@@ -1,16 +1,16 @@
 Rails.application.routes.draw do
   devise_for :admins
-  scope :paid_leaves, only: [:index] do
-    resources :requests, only: [:create, :new]
-    resources :approvals, only: [:new, :create, :edit, :update, :show]
+  scope :paid_leaves, only: [ :index ] do
+    resources :requests, only: [ :create, :new ]
+    resources :approvals, only: [ :new, :create, :edit, :update, :show ]
   end
-  resources :alcohol_logs, only: [:index, :show, :new, :create, :edit, :update]
-  root to: 'paid_leaves#index'
+  resources :alcohol_logs, only: [ :index, :show, :new, :create, :edit, :update ]
+  root to: "paid_leaves#index"
 
-  resources :alcohol_logs, only: [:index, :show] do
+  resources :alcohol_logs, only: [ :index, :show ] do
     collection do
-      resources :drive_be_logs, only: [:create, :new, :edit, :update]
-      resources :drive_af_logs, only: [:create, :new, :edit, :update]
+      resources :drive_be_logs, only: [ :create, :new, :edit, :update ]
+      resources :drive_af_logs, only: [ :create, :new, :edit, :update ]
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
