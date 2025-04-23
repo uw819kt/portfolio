@@ -2,8 +2,10 @@ Rails.application.routes.draw do
   devise_for :admins
 
   scope :admins do
-    resources :users
-    resources :cars, only: [ :update ]
+    resources :users do
+      resources :cars, only: [ :new, :create, :update ]
+      resources :paid_leaves, only: [ :new, :create ]
+    end
   end
 
   scope :paid_leaves do

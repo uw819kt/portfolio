@@ -1,0 +1,44 @@
+<h3>社員情報新規登録3/4</h3>
+
+<h1>有給休暇情報登録フォーム</h1>
+  
+<%= form_with(model: @paid_leave, url: user_paid_leaves_path(@user), local: true) do |form| %>
+  <%= form.hidden_field :user_id, value: @user.id %>
+  
+  <% if @paid_leave.errors.any? %>
+    <div class="alert alert-danger" role="alert">
+      <ul>
+        <% @paid_leave.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :joining_date %></br>
+    <%= form.date_field :joining_date, required: true %>
+  </div>
+
+  <div>
+    <%= form.label :base_date %></br>
+    <%= form.date_field :base_date, required: true %>
+  </div>
+
+  <div>
+    <%= form.label :part_time %></br>
+    <%= form.check_box :part_time, {checked: false}, true, false  %>
+    <small>※パートタイムの場合はチェックを入れてください</small></br>
+  </div>
+
+  <div>
+    <%= form.label :classification %></br>
+    <%= form.select :classification, PaidLeave.classifications.keys.map, { prompt: "勤務形態を選択" }, class: "form-select" %>
+  </div>
+
+  <%= form.submit class: "btn btn-outline-primary mt-4" %>
+<% end %>
+
+<div>
+  <%= link_to "一覧に戻る", users_path, class: "btn btn-outline-primary btn-sm" %>
+</div>

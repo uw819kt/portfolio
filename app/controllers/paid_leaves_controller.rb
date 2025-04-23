@@ -8,6 +8,25 @@ class PaidLeavesController < ApplicationController
   def show
   end
 
+  def new
+    @user = User.find(params[:user_id])
+    @paid_leave = @user.build_paid_leave
+  end
+
+  def create
+    binding.irb
+    @user = User.find(params[:paid_leave][:user_id])
+    @paid_leave = @user.build_paid_leave(paid_leave_params)
+
+    if @paid_leave.save
+      flash[:notice] = "有給休暇情報を登録しました。"
+      redirect_to users_path
+    else
+      flash[:alert] = "有給休暇情報を登録出来ませんでした。"
+      render :new, status: :unprocessable_entity
+    end
+  end
+
   def edit
   end
 

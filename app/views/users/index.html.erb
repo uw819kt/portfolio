@@ -16,7 +16,7 @@
       <td><%= user.name %></td>
       <td><%= user.department %></td>
       <td><%= user.email %></td>
-      <td><%= user.car.private_car.presence || user.car.company_car %></td>
+      <td><%= user.car&.private_car.presence || user.car&.company_car %></td>
       <td><%= user.paid_leave&.joining_date %></td>
     
       <td>

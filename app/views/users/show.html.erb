@@ -10,7 +10,7 @@
 </div>
 
 <h3>車両関連情報</h3>
-<%= form_with(model: @user.car, url: car_path, local: true, method: :patch) do |form| %>
+<%= form_with(model: [@user, @car], local: true) do |form| %>
   <div class="field">
     <%= form.label :private_car, "私用車の車両番号:" %>
     <%= form.text_field :private_car, placeholder: "任意" %>
