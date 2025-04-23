@@ -9,6 +9,8 @@ RSpec.describe PaidLeave, type: :model do
 
   it { is_expected.to validate_presence_of :joining_date }
   it { is_expected.to validate_presence_of :base_date }
-  it { is_expected.to validate_presence_of :part_time }
+  it { is_expected.to allow_value("true").for(:part_time) }
+  it { is_expected.to allow_value("false").for(:part_time) }
+  it { is_expected.not_to allow_value(nil).for(:part_time) }
   it { is_expected.to validate_presence_of :classification }
 end

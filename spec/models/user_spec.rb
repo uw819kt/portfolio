@@ -6,7 +6,7 @@ RSpec.describe User, type: :model do
   it { should have_many(:requests) }
   it { should have_one(:grant) }
   it { should have_many(:approvals) }
-  # it { should belong_to(:car) }
+  it { should have_one(:car) }
   it { should have_many(:drive_be_logs) }
   it { should have_many(:drive_af_logs) }
 

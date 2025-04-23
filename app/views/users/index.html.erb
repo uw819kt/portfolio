@@ -1,0 +1,31 @@
+<h1>社員情報一覧</h1>
+
+<table class="table table-striped">
+  <tbody>
+    <tr class="table-primary">
+      <td>氏名</td>
+      <td>部署</td>
+      <td>メールアドレス</td>
+      <td>車両番号</td>
+      <td>入社日</td>
+      <td></td>
+    </tr>
+
+    <tr>
+    <% @users.each do |user| %>
+      <td><%= user.name %></td>
+      <td><%= user.department %></td>
+      <td><%= user.email %></td>
+      <td><%= user.car.private_car.presence || user.car.company_car %></td>
+      <td><%= user.paid_leave&.joining_date %></td>
+    
+      <td>
+        <div>
+          <%= link_to "詳細", user_path(user), class: "btn btn-outline-primary btn-sm mb-1" %>
+          <%= link_to "削除する", user_path(user), data: { turbo_method: :delete, turbo_confirm: "本当に削除してもよろしいですか?" }, class: "btn btn-outline-danger btn-sm" %>
+        </div>
+      </td> 
+    </tr>
+    <% end %>
+  <tbody>
+</table>

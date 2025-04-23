@@ -4,8 +4,8 @@ class PaidLeave < ApplicationRecord
   has_many :requests, dependent: :destroy
   has_many :approvals, dependent: :destroy
 
-  validates :joining_date, :base_date, :part_time,
-    :classification, presence: true
+  validates :joining_date, :base_date, :classification, presence: true
+  validates :part_time, inclusion: { in: [ true, false ] }
 
   enum :classification, {
     "full-time": 0,

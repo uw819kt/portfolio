@@ -3,7 +3,7 @@ class User < ApplicationRecord
   has_many :requests, dependent: :destroy
   has_one :grant, dependent: :destroy
   has_many :approvals, dependent: :destroy
-  belongs_to :car, optional: true
+  has_one :car
   has_many :drive_be_logs, dependent: :destroy
   has_many :drive_af_logs, dependent: :destroy
 

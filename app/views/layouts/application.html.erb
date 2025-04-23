@@ -26,8 +26,8 @@
     </div>
 
     <div><%# 管理者向け %>
-      <%= link_to "社員情報一覧", "#" %>
-      <%= link_to "社員情報新規登録", "#" %>
+      <%= link_to "社員情報一覧", users_path %>
+      <%= link_to "社員情報新規登録", new_user_path %>
       <%= link_to "酒気帯び記録表入力(運転前)", new_drive_be_log_path %>
       <%= link_to "酒気帯び記録表入力(運転後)", new_drive_af_log_path %>
       <%= link_to "酒気帯び記録表入力状況一覧", alcohol_logs_path %>
