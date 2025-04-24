@@ -1,6 +1,6 @@
 class PaidLeave < ApplicationRecord
   belongs_to :user
-  # belongs_to :grant, dependent: :destroy
+  has_one :grant, dependent: :destroy
   has_many :requests, dependent: :destroy
   has_many :approvals, dependent: :destroy
 

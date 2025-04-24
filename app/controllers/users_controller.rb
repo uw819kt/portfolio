@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update ]
+  before_action :set_user, only: %i[ show edit update destroy ]
 
   def index
     @users = User.includes(:car, :paid_leave).order("users.id ASC")
@@ -41,7 +41,14 @@ class UsersController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
+    if @user.destroy
+      flash[:notice] = '社員情報の削除が完了しました'
+      redirect_to users_path, status: :see_other
+    else
+      flash[:danger] = @user.errors.full_messages.to_sentence
+      redirect_to user_path(@user), status: :unprocessable_entity
+    end
   end
 
   private
