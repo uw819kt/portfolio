@@ -1,0 +1,9 @@
+<% if @grant.errors.any? %>
+  <div class="alert alert-danger" role="alert">
+    <ul>
+      <% @grant.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

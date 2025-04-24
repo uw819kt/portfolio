@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :users do
       resources :cars, only: [ :new, :create, :update ]
       resources :paid_leaves, only: [ :new, :create ]
+      resources :grants, only: [ :new, :create, :edit, :update ]
     end
   end
 

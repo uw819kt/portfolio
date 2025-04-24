@@ -14,13 +14,12 @@ class PaidLeavesController < ApplicationController
   end
 
   def create
-    binding.irb
     @user = User.find(params[:paid_leave][:user_id])
     @paid_leave = @user.build_paid_leave(paid_leave_params)
 
     if @paid_leave.save
       flash[:notice] = "有給休暇情報を登録しました。"
-      redirect_to users_path
+      redirect_to new_user_grant_path(user_id: @user.id)
     else
       flash[:alert] = "有給休暇情報を登録出来ませんでした。"
       render :new, status: :unprocessable_entity
@@ -32,10 +31,10 @@ class PaidLeavesController < ApplicationController
 
   def update
     if @paid_leave.update(paid_leave_params)
-      flash[:notice] = "有給休暇関連情報を更新しました。"
+      flash[:notice] = "有給休暇基礎情報を更新しました。"
       redirect_to user_path
     else
-      flash[:alert] = "有給休暇関連情報を更新出来ませんでした。"
+      flash[:alert] = "有給休暇基礎情報を更新出来ませんでした。"
       render :edit, status: :unprocessable_entity
     end
   end

@@ -1,0 +1,24 @@
+<h3>社員情報新規登録4/4</h3>
+
+<h1>有給休暇付与情報登録フォーム</h1>
+  
+<%= form_with model: [@user, @grant], url: user_grants_path(@user), local: true do |form| %>
+
+  <%= render "grants/errors", grant: @grant %>
+
+  <div>
+    <%= form.label :granted_piece %></br>
+    <%= form.number_field :granted_piece, min: 0, required: true, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :granted_day %></br>
+    <%= form.date_field :granted_day, required: true %>
+  </div>
+
+  <%= form.submit class: "btn btn-outline-primary mt-4" %>
+<% end %>
+
+  <div>
+    <%= link_to "一覧に戻る", users_path, class: "btn btn-outline-primary btn-sm" %>
+  </div>

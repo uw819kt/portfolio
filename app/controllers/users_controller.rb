@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   def show
     @paid_leave = @user.paid_leave
     @car = @user.car
+    @grant = Grant.find_by(user_id: @user.id, paid_leave_id: @paid_leave.id)
   end
 
   def new
@@ -22,7 +23,7 @@ class UsersController < ApplicationController
       flash[:notice] = "基本情報を登録しました。"
       redirect_to new_user_car_path(user_id: @user.id)
     else
-      flash[:alert] = "基本情報情報を登録出来ませんでした"
+      flash[:alert] = "基本情報を登録出来ませんでした"
       render :new, status: :unprocessable_entity
     end
   end
@@ -32,10 +33,10 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      flash[:notice] = "基本情報情報を更新しました。"
+      flash[:notice] = "基本情報を更新しました。"
       redirect_to user_path
     else
-      flash[:alert] = "基本情報情報を更新出来ませんでした。"
+      flash[:alert] = "基本情報を更新出来ませんでした。"
       render :edit, status: :unprocessable_entity
     end
   end

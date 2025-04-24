@@ -1,7 +1,33 @@
-  <h1>有給休暇情報編集フォーム</h1>
+<%= form_with(model: @paid_leave, remote: false) do |form| %>
+
+  <h1>有給休暇基礎情報編集フォーム</h1>
    
-  <%= render "paid_leaves/form", paid_leave: @paid_leave %>
+  <%= render "paid_leaves/errors", paid_leave: @paid_leave %>
+
+  <div>
+    <%= form.label :joining_date %></br>
+    <%= form.date_field :joining_date, required: true %>
+  </div>
+
+  <div>
+    <%= form.label :base_date %></br>
+    <%= form.date_field :base_date, required: true %>
+  </div>
+
+  <div>
+    <%= form.label :part_time %></br>
+    <%= form.check_box :part_time, {checked: false}, true, false  %>
+    <small>※パートタイムの場合はチェックを入れてください</small></br>
+  </div>
+
+  <div>
+    <%= form.label :classification %></br>
+    <%= form.select :classification, PaidLeave.classifications.keys.map, { prompt: "勤務形態を選択" }, class: "form-select" %>
+  </div>
+
+  <%= form.submit class: "btn btn-outline-primary mt-4" %>
 
   <div>
     <%= link_to "詳細に戻る", user_path, class: "btn btn-outline-primary btn-sm" %>
   </div>
+<% end %>

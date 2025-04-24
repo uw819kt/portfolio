@@ -1,0 +1,9 @@
+<% if @paid_leave.errors.any? %>
+  <div class="alert alert-danger" role="alert">
+    <ul>
+      <% @paid_leave.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

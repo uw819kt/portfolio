@@ -2,18 +2,11 @@
 
 <h1>有給休暇情報登録フォーム</h1>
   
+
 <%= form_with(model: @paid_leave, url: user_paid_leaves_path(@user), local: true) do |form| %>
   <%= form.hidden_field :user_id, value: @user.id %>
-  
-  <% if @paid_leave.errors.any? %>
-    <div class="alert alert-danger" role="alert">
-      <ul>
-        <% @paid_leave.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+
+  <%= render "paid_leaves/errors", paid_leave: @paid_leave %>
 
   <div>
     <%= form.label :joining_date %></br>
