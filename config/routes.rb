@@ -1,10 +1,21 @@
 Rails.application.routes.draw do
   devise_for :admins
-  scope :paid_leaves, only: [ :index ] do
+
+  scope :admins do
+    resources :users do
+      resources :cars, only: [ :new, :create, :update ]
+      resources :paid_leaves, only: [ :new, :create ]
+      resources :grants, only: [ :new, :create, :edit, :update ]
+    end
+  end
+
+  scope :paid_leaves do
     resources :requests, only: [ :create, :new ]
     resources :approvals, only: [ :new, :create, :edit, :update, :show ]
   end
   resources :alcohol_logs, only: [ :index, :show, :new, :create, :edit, :update ]
+
+  resources :paid_leaves, only: [ :index, :edit, :update ]
   root to: "paid_leaves#index"
 
   resources :alcohol_logs, only: [ :index, :show ] do

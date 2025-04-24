@@ -171,6 +171,14 @@ normal_car_12 = Car.create( # nakayama
   user_id: normal_12.id
 )
 
+manager_pl_1 = PaidLeave.create!( # arima
+  joining_date: 7.years.ago.change(month: 4, day: 1),
+  base_date: 7.years.ago.change(month: 4, day: 1),
+  part_time: false,
+  classification: 0,
+  user_id: manager.id
+)
+
 normal_pl_1 = PaidLeave.create!( # hamasaki
   joining_date: 7.years.ago.change(month: 4, day: 1),
   base_date: 7.years.ago.change(month: 4, day: 1),
@@ -248,6 +256,22 @@ normal_pl_10 = PaidLeave.create( # simizu
   part_time: true,
   classification: 1,
   user_id: normal_10.id
+)
+
+normal_pl_11 = PaidLeave.create( # asano
+  joining_date: 7.years.ago.change(month: 4, day: 1),
+  base_date: 7.years.ago.change(month: 4, day: 1),
+  part_time: false,
+  classification: 0,
+  user_id: normal_11.id
+)
+
+normal_pl_12 = PaidLeave.create( # nakayama
+  joining_date: 7.years.ago.change(month: 4, day: 1),
+  base_date: 7.years.ago.change(month: 4, day: 1),
+  part_time: false,
+  classification: 0,
+  user_id: normal_12.id
 )
 
 Grant.create( # hamasaki
