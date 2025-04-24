@@ -1,8 +1,42 @@
 class PaidLeavesController < ApplicationController
-  before_action :set_paid_leave, only: %i[ show ]
+  before_action :set_paid_leave, only: %i[ show edit update ]
 
   def index
     @paid_leaves = PaidLeave.includes(:user).all
+  end
+
+  def show
+  end
+
+  def new
+    @user = User.find(params[:user_id])
+    @paid_leave = @user.build_paid_leave
+  end
+
+  def create
+    @user = User.find(params[:paid_leave][:user_id])
+    @paid_leave = @user.build_paid_leave(paid_leave_params)
+
+    if @paid_leave.save
+      flash[:notice] = "有給休暇情報を登録しました。"
+      redirect_to new_user_grant_path(user_id: @user.id)
+    else
+      flash[:alert] = "有給休暇情報を登録出来ませんでした。"
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    if @paid_leave.update(paid_leave_params)
+      flash[:notice] = "有給休暇基礎情報を更新しました。"
+      redirect_to user_path
+    else
+      flash[:alert] = "有給休暇基礎情報を更新出来ませんでした。"
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   private
