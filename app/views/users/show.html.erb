@@ -41,8 +41,11 @@
 <%= "付与日数: #{@grant&.granted_piece}" %><br>
 <%= "付与日: #{@grant&.granted_day}" %><br>
 
-<div>
-  <%= link_to "有給休暇付与情報を編集", edit_user_grant_path(@user, @grant) %>
-</div>
-
+<% if @grant.present? %>
+  <div>
+    <%= link_to "有給休暇付与情報を編集", edit_user_grant_path(@user, @grant) %>
+  </div>
+<% else %>
+  <p>有給休暇の付与情報がまだありません。</p>
+<% end %>
 
