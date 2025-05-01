@@ -32,12 +32,16 @@ class ApprovalsController < ApplicationController
 
   def show
     @paid_leave = PaidLeave.find(params[:paid_leave_id])
-    @approval = @paid_leave.approved_approval
+    @user = @paid_leave.user
+    @approval = @paid_leave.approvals
+    @grant = @paid_leave.grant
+
+    @approval_count = Approval.where(paid_leave_id:  @paid_leave.id).count
+    @achievements = (@grant.granted_piece) - (@approval_count)
 
     if @approval
       render :show
     else
-      # 承認が存在しない → 一覧へリダイレクト & メッセージ
       flash[:notice] = "現在承認済の有給休暇申請はありません。"
       redirect_to root_path
     end

@@ -1,30 +1,7 @@
 <h1><%= Date.today.year %>年&nbsp;有給休暇取得状況詳細（承認済）</h1>
 
-<p class="text-end text-decoration-underline"><%= "部署" %>&nbsp;&nbsp;<%= @paid_leave.user.department %></p>
-<p class="text-end text-decoration-underline"><%= "氏名" %>&nbsp;&nbsp;<%= @paid_leave.user.name %></p>
+<%= render 'shared', approval: @approval %>
 
-<table class="table table-bordered mb-0">
-  <tbody>
-      <tr>
-        <td colspan="2" class="table-primary"><%= "基準日" %></td>
-        <td colspan="4"><%= @paid_leave.base_date %></td>
-      </tr>
-      <tr>
-        <td colspan="2" class="table-primary"><%= "有効期間" %></td>
-        <td colspan="4"><%= "#{@paid_leave.base_date}～#{@paid_leave.base_date.next_year - 1}" %></td>
-      </tr>
-      <tr>
-        <td ><%= "合計日数" %></td>
-        <td>20</td>
-
-        <td><%= "前年度繰越分" %></td>
-        <td>-</td>
-
-        <td><%= "今年度付与分" %></td>
-        <td>20</td>
-      </tr>
-  <tbody>
-</table>
 <table class="table table-striped">
   <thead>
     <tr class="table-primary">
@@ -46,7 +23,7 @@
         <td><%= index + 1 %></td>
         <td><%= approval.request_date %></td>
         <td><%= approval.acquisition_date %></td>
-        <td id="target"><%= "合計日数" %></td>
+        <td id="target"><%= @achievements %></td>
         <td></td> <!-- 空のセル -->
         <td></td> <!-- 空のセル -->
         <td><%= approval.paid_remarks %></td>

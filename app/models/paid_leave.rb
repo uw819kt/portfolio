@@ -27,7 +27,7 @@ class PaidLeave < ApplicationRecord
     one_year_later =  base_date + 1.year
 
     used_count = approvals
-      .where(paid_applicable: true)
+      .where(paid_applicable: true, paid_confirm: true)
       .where(acquisition_date:  base_date...one_year_later)
       .count
   end
