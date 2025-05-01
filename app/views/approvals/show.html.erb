@@ -1,7 +1,7 @@
-<h1><%= Date.today.year %>年&nbsp;有給休暇取得状況詳細（申請中）</h1>
+<h1><%= Date.today.year %>年&nbsp;有給休暇取得状況詳細（承認済）</h1>
 
-<p class="text-end text-decoration-underline"><%= "部署" %>&nbsp;&nbsp;<%= @user.department %></p>
-<p class="text-end text-decoration-underline"><%= "氏名" %>&nbsp;&nbsp;<%= @user.name %></p>
+<p class="text-end text-decoration-underline"><%= "部署" %>&nbsp;&nbsp;<%= @paid_leave.user.department %></p>
+<p class="text-end text-decoration-underline"><%= "氏名" %>&nbsp;&nbsp;<%= @paid_leave.user.name %></p>
 
 <table class="table table-bordered mb-0">
   <tbody>
@@ -41,18 +41,17 @@
   </thead>
     
   <tbody>
-    <% @request.each_with_index do |request, index| %>
+    <% @approval.each_with_index do |approval, index| %>
       <tr>
         <td><%= index + 1 %></td>
-        <td><%= request.request_date %></td>
-        <td><%= request.acquisition_date %></td>
+        <td><%= approval.request_date %></td>
+        <td><%= approval.acquisition_date %></td>
         <td id="target"><%= "合計日数" %></td>
         <td></td> <!-- 空のセル -->
         <td></td> <!-- 空のセル -->
-        <td><%= request.paid_remarks %></td>
-        <td><%= request.approval&.paid_applicable ? '適用' : '未適用' %></td>
-        <td><%= request.approval&.paid_confirm ? '承認済' : '承認未' %></td>
-        <td><%= link_to (request.approval.present? ? "編集する" : "承認する"), request.approval_link %></td>
+        <td><%= approval.paid_remarks %></td>
+        <td><%= approval&.paid_applicable ? '適用' : '未適用' %></td>
+        <td><%= approval&.paid_confirm ? '承認済' : '承認未' %></td>
       </tr>      
     <% end %>
   </tbody>
