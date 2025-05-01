@@ -10,9 +10,13 @@ Rails.application.routes.draw do
   end
 
   scope :paid_leaves do
-    resources :requests, only: [ :create, :new ]
+    resources :requests, only: [ :index, :create, :new, :show ]
+  end
+
+  resources :paid_leaves, path: "paid_leaves", as: "paid_leaves" do
     resources :approvals, only: [ :new, :create, :edit, :update, :show ]
   end
+
   resources :alcohol_logs, only: [ :index, :show, :new, :create, :edit, :update ]
 
   resources :paid_leaves, only: [ :index, :edit, :update ]

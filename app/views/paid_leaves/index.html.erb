@@ -1,17 +1,25 @@
-<h1><%= "有給休暇取得一覧画面" %></h1>
+<h1>有給休暇取得一覧画面</h1>
 
 <%= Date.today %>
+
+<!-- 未承認の有給の数を管理者のみ表示 -->
+<% if @unapproved_request_count.positive? %>
+  <p class="alert alert-warning">
+    未確認の有給申請が <%= link_to @unapproved_request_count, requests_path %> 件あります。
+  </p>
+<% end %>
 
 <table>
   <thead>
     <tr>
       <th>No</th>
+      <!-- <th><%= "社員番号" %></th> -->
       <th><%= "名前" %></th>
       <th><%= "入社日" %></th>
       <th><%= "基準日" %></th>
-      <th><%= "項目4" %></th>
-      <th><%= "項目5" %></th>
-      <th><%= "項目6" %></th>
+      <th><%= "年休保有日数(基準日時点)" %></th>
+      <th><%= "予定日数" %></th>
+      <th><%= "取得数（実績）" %></th>
         <% (4..12).each do |month| %>
           <th><%= month %>月</th>
         <% end %>
@@ -22,30 +30,27 @@
     </tr>
   </thead>
 
-<% @paid_leaves.each do |paid_leave| %>
+<% @paid_leaves.each_with_index do |paid_leave, index| %>
   <tbody>
     <tr>
-      <td></td>
+      <td><%= index + 1 %></td>
       <td><%= paid_leave.user.name %></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td><%= paid_leave.joining_date %></td>
+      <td><%= paid_leave.base_date %></td>
+      <td><%= paid_leave.grant&.granted_piece || "-" %></td>
+      <td><%= paid_leave.grant&.granted_piece || "-" %></td>
+      <td><%= paid_leave.paid_achievements %></td>
+      <% (4..12).each do |month| %>
+        <td><%= paid_leave.paid_totalling(month) || "-" %></td>
+      <% end %>
+      
+      <% (1..3).each do |month| %>
+        <td><%= paid_leave.paid_totalling(month) || "-" %></td>
+      <% end %>
+
       <td>
-        <%= link_to "詳細" %>
+        <%= link_to "詳細（承認済）", paid_leave_approval_path(paid_leave, 0) %>
+        <%= link_to "申請中", request_path(paid_leave) %>
       </td>
     </tr>
   </tbody> 

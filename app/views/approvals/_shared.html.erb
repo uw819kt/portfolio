@@ -1,0 +1,25 @@
+<p class="text-end text-decoration-underline"><%= "部署" %>&nbsp;&nbsp;<%= @user.department %></p>
+<p class="text-end text-decoration-underline"><%= "氏名" %>&nbsp;&nbsp;<%= @user.name %></p>
+
+<table class="table table-bordered mb-0">
+  <tbody>
+      <tr>
+        <td colspan="2" class="table-primary"><%= "基準日" %></td>
+        <td colspan="4"><%= @paid_leave.base_date %></td>
+      </tr>
+      <tr>
+        <td colspan="2" class="table-primary"><%= "有効期間" %></td>
+        <td colspan="4"><%= "#{@paid_leave.base_date}～#{@paid_leave.base_date.next_year - 1}" %></td>
+      </tr>
+      <tr>
+        <td ><%= "合計日数" %></td>
+        <td><%= @grant.granted_piece %></td>
+
+        <td><%= "前年度繰越分" %></td>
+        <td>-</td>
+
+        <td><%= "今年度付与分" %></td>
+        <td><%= @grant.granted_piece %></td>
+      </tr>
+  <tbody>
+</table>

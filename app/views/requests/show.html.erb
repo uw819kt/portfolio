@@ -1,0 +1,9 @@
+<h1><%= Date.today.year %>年&nbsp;有給休暇取得状況詳細（申請中）</h1>
+
+<%= render 'approvals/shared', request: @request %>
+
+<%= render 'table', request: @request %>
+  
+<div>  
+  <%= link_to "戻る", root_path, class: "text-decoration-none" %>
+</div>

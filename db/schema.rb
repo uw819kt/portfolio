@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_04_15_135734) do
+ActiveRecord::Schema[7.2].define(version: 2025_04_21_125615) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -37,7 +37,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_15_135734) do
     t.text "paid_remarks"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "request_id", null: false
     t.index ["paid_leave_id"], name: "index_approvals_on_paid_leave_id"
+    t.index ["request_id"], name: "index_approvals_on_request_id"
     t.index ["user_id"], name: "index_approvals_on_user_id"
   end
 
@@ -123,6 +125,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_15_135734) do
   end
 
   add_foreign_key "approvals", "paid_leaves", column: "paid_leave_id"
+  add_foreign_key "approvals", "requests"
   add_foreign_key "approvals", "users"
   add_foreign_key "cars", "users"
   add_foreign_key "drive_af_logs", "cars"
