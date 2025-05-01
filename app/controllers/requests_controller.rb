@@ -1,5 +1,9 @@
 class RequestsController < ApplicationController
 
+  def index
+    @request = Request.without_approval
+  end
+
   def show
     @paid_leave = PaidLeave.find(params[:id])
     @user = @paid_leave.user

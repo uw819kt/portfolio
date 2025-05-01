@@ -2,6 +2,13 @@
 
 <%= Date.today %>
 
+<!-- 未承認の有給の数を管理者のみ表示 -->
+<% if @unapproved_request_count.positive? %>
+  <p class="alert alert-warning">
+    未確認の有給申請が <%= link_to @unapproved_request_count, requests_path %> 件あります。
+  </p>
+<% end %>
+
 <table>
   <thead>
     <tr>

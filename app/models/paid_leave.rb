@@ -35,13 +35,13 @@ class PaidLeave < ApplicationRecord
   def paid_totalling(month) # 有給取得月間集計
     return nil unless grant&.granted_day
 
-    year = base_date.year
+    year = Date.today.year
 
     start_date = Date.new(year, month, 1)
     end_date = start_date.end_of_month
 
     approvals
-      .where(paid_applicable: true)
+      .where(paid_applicable: true, paid_confirm: true)
       .where(acquisition_date: start_date..end_date)
       .count
   end
