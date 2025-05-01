@@ -11,6 +11,10 @@ class DriveBeLog < ApplicationRecord
   enum :confirmation, { phone: 0, meeting: 1, others1: 2 }
   enum :condition, { good: 0, bad: 1, others2: 2 }
 
+  def self.ransackable_attributes(auth_object = nil)
+    [ "check_time" ]
+  end
+
   private
 
   def check_duplicate_log_for_today
