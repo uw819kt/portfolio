@@ -1,10 +1,15 @@
 <h1>酒気帯び確認記録表</h1>
 <p class="d-flex justify-content-end">興和電気株式会社</p>
-<!-- date -->
-<!-- search box -->
+
+<%= search_form_for @q, url: alcohol_logs_path, method: :get, remote: false do |f| %>
+  <%= f.date_field :check_time_eq, class: 'form-control' %>
+  <%= f.submit '検索', class: 'btn btn-outline-primary mt-4' %>
+<% end %>
+
+<%= params.dig(:q, :check_time_eq).presence || Date.today %>
 
 <table class="table table-striped m-0">
-<tbody>
+  <tbody>
     <tr class="table-primary">
       <td colspan="2"><%= "運転者・車両" %></td>
       <td colspan="7"><%= "運転前" %></td>
@@ -33,8 +38,8 @@
     </tr>
 
     <% User.includes(:drive_be_logs, :drive_af_logs).each do |user| %>
-      <% be_log = user.drive_be_logs.find_by(check_time: Date.current.all_day) %>
-      <% af_log = user.drive_af_logs.find_by(check_time: Date.current.all_day) %>
+      <% be_log = @be_logs[user.id] %>
+      <% af_log = @af_logs[user.id] %>
     
       <tr>
         <td><%= user.name %></td>
