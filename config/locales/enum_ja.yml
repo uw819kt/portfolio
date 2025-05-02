@@ -1,0 +1,36 @@
+ja:
+  enums:
+    paid_leave:
+      classification:
+        full-time: フルタイム
+        4days_w: 4日/週
+        3days_w: 3日/週
+        2days_w: 2日/週
+        1days_w: 1日/週
+        others: その他
+    user:
+      department:
+        sales: 営業部
+        air_conditioning: 空調工事部
+        manufacturing: 製造部
+        design: 設計部
+        management: 管理部
+        others: その他
+    drive_af_log:
+      confirmation:
+        phone: 電話
+        meeting: 対面
+        others1: その他
+      condition:
+        good: 良
+        bad: 不
+        others2: その他
+    drive_be_log:
+      confirmation:
+        phone: 電話
+        meeting: 対面
+        others1: その他
+      condition:
+        good: 良
+        bad: 不
+        others2: その他

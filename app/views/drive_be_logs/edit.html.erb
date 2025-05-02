@@ -1,13 +1,6 @@
 <%= form_with(model: @drive_be_log, remote: false) do |form| %>
-  <% if @drive_be_log.errors.any? %>
-    <div class="alert alert-danger" role="alert">
-      <ul>
-        <% @drive_be_log.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+
+  <%= render "errors", drive_be_log: @drive_be_log %>
 
   <h1>酒気帯び記録編集フォーム（運転前）</h1>
     <div>
@@ -15,42 +8,8 @@
       <%= form.datetime_local_field :check_time, required: true %>
     </div>
 
-    <div>
-      <%= form.label :user_id %></br>
-      <%= form.collection_select :user_id, User.all, :id, :name, { prompt: "氏名を選択" }, { required: true, class: "form-select" } %>
-    </div>
+    <%= render "form", drive_be_log: @drive_be_log, form: form %>
 
-    <div>
-      <%= form.label :car_id %></br>
-      <%= form.collection_select :car_id, Car.all, :id, :car_number, { prompt: "車両を選択" }, { required: true, class: "form-select" } %>
-    </div>
-
-    <div>
-      <%= form.label :confirmation %></br>
-      <%= form.select :confirmation, @drive_be_log.class.confirmations.keys, {}, class: "form-control" %>
-    </div>
-
-    <div>
-      <%= form.label :detector_used %></br>
-      <%= form.check_box :detector_used, {checked: true}, true, false  %>
-    </div>
-
-    <div>
-      <%= form.label :result %></br>
-      <%= form.text_field :result, class: "form-control", placeholder: "例）0.00" %>
-    </div>
-
-    <div>
-      <%= form.label :condition %></br>
-      <%= form.select :condition, @drive_be_log.class.conditions.keys, {}, class: "form-control" %>
-    </div>
-
-    <div>
-      <%= form.label :log_remarks %></br>
-      <%= form.text_area :log_remarks, class: "form-control", placeholder: "特記事項あれば記入" %>
-    </div>
-
-    <%= form.submit class: "btn btn-outline-primary mt-4" %>
 <% end %>
 
     <div>

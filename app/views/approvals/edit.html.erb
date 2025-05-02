@@ -1,39 +1,8 @@
 <h1>有給取得申請編集</h1>
   <%= form_with(model: @approval, url: paid_leave_approval_path(@approval), local: true) do |form| %>
 
-    <% if @approval.errors.any? %>
-      <div class="alert alert-danger" role="alert">
-        <ul>
-          <% @approval.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
+  <%= render "approvals/form", approval: @approval, form: form %>
 
-    <div>
-      <%= form.label :request_date %><br>
-      <%= form.date_field :request_date %>
-    </div>
-
-    <div>
-      <%= form.label :acquisition_date %><br>
-      <%= form.date_field :acquisition_date %>
-    </div>
-
-    <div>
-      <%= form.label :paid_remarks %><br>
-      <%= form.text_area :paid_remarks, placeholder: "特記事項あれば記入 例）介護休暇" %>
-    </div>
-
-    <div>
-      <%= form.label :paid_applicable %></br>
-      <%= form.check_box :paid_applicable  %>
-    </div>
-
-    <div>
-      <%= form.submit %>
-    </div>
   <% end %>
 
   <div>
