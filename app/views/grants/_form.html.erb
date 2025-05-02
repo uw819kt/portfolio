@@ -1,0 +1,21 @@
+<% if @grant.errors.any? %>
+  <div class="alert alert-danger" role="alert">
+    <ul>
+      <% @grant.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+  <div>
+    <%= form.label :granted_piece %></br>
+    <%= form.number_field :granted_piece, min: 0, required: true, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :granted_day %></br>
+    <%= form.date_field :granted_day, required: true %>
+  </div>
+
+  <%= form.submit class: "btn btn-outline-primary mt-4" %>

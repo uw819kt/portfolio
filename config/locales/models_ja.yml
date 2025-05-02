@@ -1,0 +1,66 @@
+ja:
+  activerecord:
+    models:
+      user: 社員
+      paidLeave: 有給
+      alcoholLog: 酒気
+      drive_af_log: 運転後の記録
+      drive_be_log: 運転前の記録
+      request: 有給申請
+      approval: 有給承認
+      car: 車両
+      grant: 有給付与
+    attributes:
+      user:
+        name: 氏名
+        email: メールアドレス
+        department: 部署
+      paid_leave:
+        joining_date: 入社日 
+        base_date: 基準日
+        part_time: パートタイム
+        user_id: 社員
+        classification: 区分（パートタイム）
+      drive_af_log:
+        check_time: 確認日時
+        confirmation: 確認方法
+        detector_used: 検知器
+        result: 測定結果
+        condition: 体調状態
+        log_remarks: 指示事項/その他
+        driving_status: 運転前後
+        car_id: 車両番号
+        user_id: 氏名
+      drive_be_log:
+        check_time: 確認日時
+        confirmation: 確認方法
+        detector_used: 検知器
+        result: 測定結果
+        condition: 体調状態
+        log_remarks: 指示事項/その他
+        driving_status: 運転前後
+        car_id: 車両番号
+        user_id: 氏名
+      request:
+        request_date: 申請日時
+        acquisition_date: 取得日
+        paid_remarks: 備考
+        user_id: 氏名
+      approval:
+        request_date: 申請日時
+        acquisition_date: 取得日
+        paid_applicable: 有給適用
+        paid_remarks: 備考
+        user_id: 氏名
+        paid_confirm: 承認の確認
+      car:
+        company_car: 車両番号（社用車）
+        private_car: 車両番号（自家用車）
+      grant:
+        granted_piece: 付与日数
+        granted_day: 付与日
+        user_id: 氏名
+        paid_leave_id: 有給id
+
+         
+        

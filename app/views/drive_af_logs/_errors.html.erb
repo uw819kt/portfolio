@@ -1,9 +1,9 @@
-<% if @grant.errors.any? %>
+<% if @drive_af_log.errors.any? %>
   <div class="alert alert-danger" role="alert">
     <ul>
-      <% @grant.errors.each do |error| %>
+    <% @drive_af_log.errors.each do |error| %>
         <li><%= error.full_message %></li>
-      <% end %>
+    <% end %>
     </ul>
   </div>
 <% end %>

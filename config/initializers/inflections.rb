@@ -16,5 +16,5 @@
 # end
 
 ActiveSupport::Inflector.inflections(:en) do |inflect|
-  inflect.irregular 'paid_leave', 'paid_leaves'
+  inflect.irregular "paid_leave", "paid_leaves"
 end

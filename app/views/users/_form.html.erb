@@ -16,7 +16,7 @@
 
   <div>
     <%= form.label :department %></br>
-    <%= form.select :department, User.departments.keys.map, { prompt: "部署を選択" }, class: "form-select" %>
+    <%= form.select :department, User.departments.keys.map {|k| [I18n.t("enums.user.department.#{k}"), k]}, { prompt: "部署を選択" }, class: "form-select" %>
   </div>
 
   <div>
