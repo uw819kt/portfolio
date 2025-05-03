@@ -8,6 +8,9 @@ class RequestsController < ApplicationController
     @user = @paid_leave.user
     @request = @user.requests
     @grant = @paid_leave.grant
+
+    @approval_count = Approval.where(paid_leave_id:  @paid_leave.id).count
+    @achievements = (@grant.granted_piece) - (@approval_count)
   end
 
   def new
