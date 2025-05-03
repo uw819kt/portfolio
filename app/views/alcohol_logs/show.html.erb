@@ -5,7 +5,7 @@
 <div class="container">
   <div class="row mb-2 justify-content-end">
     <div class="col-2 fw-bold text-start  border-bottom border-dark">部署</div>
-    <div class="col-2 text-start border-bottom border-dark"><%= @user.department %></div>
+    <div class="col-2 text-start border-bottom border-dark"><%= @user.department_i18n %></div>
   </div>
 
   <div class="row mb-2 justify-content-end">
@@ -14,7 +14,7 @@
   </div>
 </div>
 
-<h5><%=  Date.today %></h5>
+<h5><%= l Date.today, format: :long %></h5>
 
 <table class="table table-striped m-0">
   <tbody>
@@ -55,11 +55,11 @@
       <tr>
         <%# 運転前ログがあるか？ %>
         <% if be_log %>
-          <td><%= be_log.check_time %></td>
-          <td><%= be_log.confirmation %></td>
+          <td><%= l be_log.check_time, format: :short %></td>
+          <td><%= be_log.confirmation_i18n %></td>
           <td><%= be_log.detector_used ? '有' : '無' %></td>
           <td><%= be_log.result %></td>
-          <td><%= be_log.condition %></td>
+          <td><%= be_log.condition_i18n %></td>
           <td><%= be_log.log_remarks %></td>
           <td></td><!-- 空欄 -->
           <td><%= link_to "編集（前）", edit_drive_be_log_path(be_log.id), class: "btn btn-outline-primary btn-sm" %></td>
@@ -70,11 +70,11 @@
     
         <%# 運転後ログがあるか？ %>
         <% if af_log %>
-          <td><%= af_log.check_time %></td>
-          <td><%= af_log.confirmation %></td>
+          <td><%= l af_log.check_time, format: :short %></td>
+          <td><%= af_log.confirmation_i18n %></td>
           <td><%= af_log.detector_used ? '有' : '無' %></td>
           <td><%= af_log.result %></td>
-          <td><%= af_log.condition %></td>
+          <td><%= af_log.condition_i18n %></td>
           <td><%= af_log.log_remarks %></td>
           <td></td><!-- 空欄 -->
           <td></td><!-- 空欄 -->

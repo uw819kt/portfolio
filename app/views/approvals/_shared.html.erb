@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row mb-2 justify-content-end">
     <div class="col-2 fw-bold text-start  border-bottom border-dark">部署</div>
-    <div class="col-2 text-start border-bottom border-dark"><%= @user.department %></div>
+    <div class="col-2 text-start border-bottom border-dark"><%= @user.department_i18n %></div>
   </div>
 
   <div class="row mb-2 justify-content-end">
@@ -14,11 +14,11 @@
   <tbody>
       <tr>
         <td colspan="2" class="table-primary"><%= "基準日" %></td>
-        <td colspan="4"><%= @paid_leave.base_date %></td>
+        <td colspan="4"><%= l @paid_leave.base_date, format: :long %></td>
       </tr>
       <tr>
         <td colspan="2" class="table-primary"><%= "有効期間" %></td>
-        <td colspan="4"><%= "#{@paid_leave.base_date}～#{@paid_leave.base_date.next_year - 1}" %></td>
+        <td colspan="4"><%= "#{l @paid_leave.base_date, format: :long}～#{l @paid_leave.base_date.next_year - 1, format: :long}" %></td>
       </tr>
       <tr>
         <td ><%= "合計日数" %></td>

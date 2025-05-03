@@ -21,8 +21,8 @@
     <% @approval.each_with_index do |approval, index| %>
       <tr>
         <td><%= index + 1 %></td>
-        <td><%= approval.request_date %></td>
-        <td><%= approval.acquisition_date %></td>
+        <td><%= l approval.request_date, format: :long %></td>
+        <td><%= l approval.acquisition_date, format: :long %></td>
         <td id="target"><%= @achievements %></td>
         <td></td> <!-- 空のセル -->
         <td></td> <!-- 空のセル -->

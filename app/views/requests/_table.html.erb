@@ -18,8 +18,8 @@
     <% @request.each_with_index do |request, index| %>
       <tr>
         <td><%= index + 1 %></td>
-        <td><%= request.request_date %></td>
-        <td><%= request.acquisition_date %></td>
+        <td><%= l request.request_date, format: :long %></td>
+        <td><%= l request.acquisition_date, format: :long %></td>
         <td id="target"><%= @achievements %></td>
         <td></td> <!-- 空のセル -->
         <td></td> <!-- 空のセル -->

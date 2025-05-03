@@ -1,6 +1,6 @@
 <h1 class="text-center">有給休暇取得一覧画面</h1>
 
-<h5><%= Date.today %></h5>
+<h5><%= l Date.today, format: :long %></h5>
 
 <!-- 未承認の有給の数を管理者のみ表示 -->
 <% if @unapproved_request_count.positive? %>
@@ -35,8 +35,8 @@
     <tr>
       <td><%= index + 1 %></td>
       <td><%= paid_leave.user.name %></td>
-      <td><%= paid_leave.joining_date %></td>
-      <td><%= paid_leave.base_date %></td>
+      <td><%= l paid_leave.joining_date, format: :long %></td>
+      <td><%= l paid_leave.base_date, format: :long %></td>
       <td><%= paid_leave.grant&.granted_piece || "-" %></td>
       <td><%= paid_leave.grant&.granted_piece || "-" %></td>
       <td><%= paid_leave.paid_achievements %></td>
