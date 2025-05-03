@@ -1,51 +1,69 @@
-<h1>社員情報（詳細）</h1>
+<h1 class="text-center">社員情報（詳細）</h1>
 
-<h3>基本情報</h3>
-<%= "社員氏名: #{@user.name}" %><br>
-<%= "部署: #{@user.department}" %><br>
-<%= "メールアドレス: #{@user.email}" %><br>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
 
-<div>
-  <%= link_to "基本情報を編集", edit_user_path %>
-</div>
+      <div class="card mb-4">
+        <div class="card-header text-center">
+          <h5 class="card-title">基本情報</h5>
+        </div>
+        <div class="card-body">
+          <p><strong>氏名:</strong> <%= @user.name %></p>
+          <p><strong>部署:</strong> <%= @user.department %></p>
+          <p><strong>メール:</strong> <%= @user.email %></p>
 
-<h3>車両関連情報</h3>
-<%= form_with(model: [@user, @car], local: true) do |form| %>
-  <div class="field">
-    <%= form.label :private_car, "私用車の車両番号:" %>
-    <%= form.text_field :private_car, placeholder: "任意" %>
+          <%= link_to "基本情報を編集", edit_user_path(@user), class: "btn btn-outline-primary mt-3 w-100" %>
+        </div>
+      </div>
+
+
+      <div class="card mb-4">
+        <div class="card-header text-center">
+          <h5 class="card-title mb-0">車両関連情報</h5>
+        </div>
+        <div class="card-body">
+          <%= form_with(model: [@user, @car], local: true) do |form| %>
+            
+            <%= render "cars/form", car: @car, form: form %>
+
+            <%= form.submit "車両関連情報を更新", class: "btn btn-primary w-100" %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-header text-center">
+          <h5 class="card-title mb-0">有給休暇基礎情報</h5>
+        </div>
+        <div class="card-body">
+          <p><strong>入社日:</strong> <%= @paid_leave&.joining_date %></p>
+          <p><strong>基準日:</strong> <%= @paid_leave&.base_date %></p>
+          <p><strong>勤務形態:</strong> <%= @paid_leave&.classification %></p>
+          <p><strong>パート区分:</strong> <%= @paid_leave&.part_time ? 'パート' : 'フルタイム' %></p>
+          <small class="text-muted">※パート勤務の人のみ</small><br>
+
+          <%= link_to "有給休暇基礎情報を編集", edit_paid_leave_path, class: "btn btn-outline-primary mt-3 w-100" %>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-header text-center">
+          <h5 class="card-title mb-0">有給休暇付与情報</h5>
+        </div>
+        <div class="card-body">
+          <% if @grant.present? %>
+            <p><strong>付与日数:</strong> <%= @grant.granted_piece %></p>
+            <p><strong>付与日:</strong> <%= @grant.granted_day %></p>
+
+            <%= link_to "有給休暇付与情報を編集", edit_user_grant_path(@user, @grant), class: "btn btn-outline-primary mt-3 w-100" %>
+          <% else %>
+            <p class="text-muted">有給休暇の付与情報がまだありません。</p>
+            <%= link_to "有給休暇付与情報を新規登録", new_user_grant_path(@user, @grant), class: "btn btn-outline-primary mt-3 w-100" %>
+          <% end %>
+        </div>
+      </div>
+
+    </div>
   </div>
-
-  <div class="field">
-    <%= form.label :company_car, "社用車の車両番号:" %>
-    <%= form.text_field :company_car, placeholder: "任意" %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit "更新" %>
-  </div>
-<% end %>
-
-<h3>有給休暇基礎情報</h3>
-<%= "入社日: #{@paid_leave&.joining_date}" %><br>
-<%= "基準日: #{@paid_leave&.base_date}" %><br>
-<%= "勤務形態: #{@paid_leave&.classification}" %><br>
-<%= "パート区分: #{@paid_leave&.part_time ? 'パート' : 'フルタイム'}" %>
-<small>※パート勤務の人のみ</small>
-
-<div>
-  <%= link_to "有給休暇基礎情報を編集", edit_paid_leave_path %>
-</div>
-
-<h3>有給休暇付与情報</h3>
-<%= "付与日数: #{@grant&.granted_piece}" %><br>
-<%= "付与日: #{@grant&.granted_day}" %><br>
-
-<% if @grant.present? %>
-  <div>
-    <%= link_to "有給休暇付与情報を編集", edit_user_grant_path(@user, @grant) %>
-  </div>
-<% else %>
-  <p>有給休暇の付与情報がまだありません。</p>
-<% end %>
-
+</div>     

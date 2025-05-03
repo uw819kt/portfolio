@@ -2,7 +2,11 @@
 
   <%= render "errors", drive_be_log: @drive_be_log %>
 
-  <h1>酒気帯び記録入力フォーム（運転前）</h1>
+  <h1 class="text-center">酒気帯び記録入力フォーム（運転前）</h1>
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
 
   <%= render "form", drive_be_log: @drive_be_log, form: form %>
 
@@ -11,3 +15,7 @@
     <div>
       <%= link_to "戻る", alcohol_logs_path, class: "text-decoration-none" %>
     </div>
+
+      </div>
+    </div>
+  </div>

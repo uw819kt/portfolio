@@ -2,16 +2,25 @@
 
   <%= render "errors", drive_be_log: @drive_be_log %>
 
-  <h1>酒気帯び記録編集フォーム（運転前）</h1>
-    <div>
-      <%= form.label :check_time %></br>
-      <%= form.datetime_local_field :check_time, required: true %>
-    </div>
+  <h1 class="text-center">酒気帯び記録編集フォーム（運転前）</h1>
 
-    <%= render "form", drive_be_log: @drive_be_log, form: form %>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+
+        <div>
+          <%= form.label :check_time %></br>
+          <%= form.datetime_local_field :check_time, required: true, class: "form-select" %>
+        </div>
+
+        <%= render "form", drive_be_log: @drive_be_log, form: form %>
 
 <% end %>
 
-    <div>
-      <%= link_to "詳細に戻る", alcohol_log_path(@user), class: "btn btn-outline-primary btn-sm" %>
+  <div>
+    <%= link_to "詳細に戻る", alcohol_log_path(@user), class: "text-decoration-none" %>
+  </div>
+
+      </div>
     </div>
+  </div>

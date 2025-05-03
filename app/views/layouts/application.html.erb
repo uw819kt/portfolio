@@ -17,34 +17,53 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <div><%# 社員向け %>
-      <%= link_to "酒気帯び記録表入力(運転前)", new_drive_be_log_path %>
-      <%= link_to "酒気帯び記録表入力(運転後)", new_drive_af_log_path %>
-      <%= link_to "酒気帯び記録表入力状況一覧", alcohol_logs_path %>
-      <%= link_to "有給休暇取得申請", new_request_path %>
-      <%= link_to "有給休暇取得状況一覧", root_path %>
-    </div>
-    <div><%# 管理者向け %>
-    </div>
-
-    <div><%# 管理者向け %>
-      <%= link_to "社員情報一覧", users_path %>
-      <%= link_to "社員情報新規登録", new_user_path %>
-      <%= link_to "酒気帯び記録表入力(運転前)", new_drive_be_log_path %>
-      <%= link_to "酒気帯び記録表入力(運転後)", new_drive_af_log_path %>
-      <%= link_to "酒気帯び記録表入力状況一覧", alcohol_logs_path %>
-      <%= link_to "有給休暇取得申請", new_request_path %>
-      <%= link_to "有給休暇取得状況一覧", root_path %>
-      <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, data: { turbo_method: :delete } %>
-    </div>
-
-    <% flash.each do |key, message| %>
-      <div class="alert alert-<%= key == 'notice' ? 'success' : 'alert' %>">
-        <%= message %>
+  <body class="d-flex">
+    <!-- サイドナビ -->
+    <nav class="flex-column bg-dark p-3 min-vh-100" style="width: 200px;">
+    <!-- アプリアイコン -->
+    <div class="d-flex justify-content-center align-items-center" style="height: 200px;">
+        <%= image_tag "icon.png", alt: "App Icon", width: 120, height: 120, class: "me-2" %>
       </div>
-    <% end %>
+      
+      <div class="mb-4 text-white"><strong>社員向けメニュー</strong></div>
+      <div class="nav flex-column mb-4">
+        <%= link_to "酒気帯び記録表入力(運転前)", new_drive_be_log_path, class: "nav-link text-white" %>
+        <%= link_to "酒気帯び記録表入力(運転後)", new_drive_af_log_path, class: "nav-link text-white" %>
+        <%= link_to "酒気帯び記録表入力状況一覧", alcohol_logs_path, class: "nav-link text-white" %>
+        <%= link_to "有給休暇取得申請", new_request_path, class: "nav-link text-white" %>
+        <%= link_to "有給休暇取得状況一覧", root_path, class: "nav-link text-white" %>
+      </div>
 
-    <%= yield %>
+      <div class="mb-2  text-white"><strong>管理者向けメニュー</strong></div>
+      <div class="nav flex-column">
+        <%= link_to "社員情報一覧", users_path, class: "nav-link text-white" %>
+        <%= link_to "社員情報新規登録", new_user_path, class: "nav-link text-white" %>
+        <%= link_to "酒気帯び記録表入力(運転前)", new_drive_be_log_path, class: "nav-link text-white" %>
+        <%= link_to "酒気帯び記録表入力(運転後)", new_drive_af_log_path, class: "nav-link text-white" %>
+        <%= link_to "酒気帯び記録表入力状況一覧", alcohol_logs_path, class: "nav-link text-white" %>
+        <%= link_to "有給休暇取得申請", new_request_path, class: "nav-link text-white" %>
+        <%= link_to "有給休暇取得状況一覧", root_path, class: "nav-link text-white" %>
+        <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, data: { turbo_method: :delete }, class: "nav-link text-danger" %>
+      </div>
+    </nav>
+
+    <!-- メインコンテンツ -->
+    <div class="flex-grow-1 p-4">
+      <% if notice.present? %>
+        <p class="alert alert-success"><%= notice %></p>
+      <% end %>
+
+      <% if alert.present? %>
+        <p class="alert alert-danger"><%= alert %></p>
+      <% end %>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-md-10 offset-md-1">
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

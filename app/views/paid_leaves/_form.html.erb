@@ -8,10 +8,10 @@
     <%= form.date_field :base_date, required: true, class: "form-select" %>
   </div>
 
-  <div>
-    <%= form.label :part_time %></br>
-    <%= form.check_box :part_time, {checked: false}, true, false  %>
-    <small>※パートタイムの場合はチェックを入れてください</small></br>
+  <div class="form-check">
+    <%= form.label :part_time, class: "form-check-label" %><br>
+    <%= form.check_box :part_time, { class: "form-check-input" }, "true", "false" %>
+    <small>※パートタイムの場合はチェックを入れてください</small>
   </div>
 
   <div>
@@ -19,4 +19,4 @@
     <%= form.select :classification, PaidLeave.classifications.keys.map {|k| [I18n.t("enums.paid_leave.classification.#{k}"), k]}, { prompt: "勤務形態を選択" }, class: "form-select" %>
   </div>
 
-  <%= form.submit class: "btn btn-outline-primary mt-4" %>
+  <%= form.submit class: "btn btn-outline-primary mt-4 mb-4 w-100" %>

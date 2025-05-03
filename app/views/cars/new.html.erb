@@ -1,4 +1,6 @@
-<h3>社員情報新規登録2/4</h3>
+<h3 class="text-center">社員情報新規登録2/4</h3>
+<h1 class="text-center">車両関連情報</h1>
+
 <p>車両番号を登録しない場合は空欄のまま登録を押してください。</p>
 
 <% if @car.errors.any? %>
@@ -11,25 +13,24 @@
     </div>
   <% end %>
 
-<h1>車両関連情報</h1>
-<%= form_with(model: @car, url: user_cars_path, local: true) do |form| %>
-  <%= form.hidden_field :user_id, value: @user.id %>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
 
-  <div class="field">
-    <%= form.label :private_car, "私用車の車両番号" %>
-    <%= form.text_field :private_car, placeholder: "任意・例）下関111あ1111" %>
+      <%= form_with(model: @car, url: user_cars_path, local: true) do |form| %>
+        <%= form.hidden_field :user_id, value: @user.id %>
+
+        <%= render "cars/form", car: @car, form: form %>
+
+        <div class="actions">
+          <%= form.submit %>
+        </div>
+      <% end %>
+
+      <div>
+        <%= link_to "一覧に戻る", users_path, class: "text-decoration-none" %>
+      </div>
+
+    </div>
   </div>
-
-  <div class="field">
-    <%= form.label :company_car, "社用車の車両番号" %>
-    <%= form.text_field :company_car, placeholder: "任意・例）下関111あ1111" %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
-
-<div>
-  <%= link_to "一覧に戻る", users_path, class: "btn btn-outline-primary btn-sm" %>
 </div>

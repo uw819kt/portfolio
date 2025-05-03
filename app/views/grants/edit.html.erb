@@ -1,12 +1,20 @@
-<h1>有給休暇付与情報編集フォーム</h1>
+<h1 class="text-center">有給休暇付与情報編集フォーム</h1>
 
-<%= form_with model: [@user, @grant], url: user_grant_path(@user, @grant), method: :patch, local: true do |form| %>
-  <%= form.hidden_field :user_id, value: @user.id %>
-   
-  <%= render "grants/form", grant: @grant %>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
 
-<% end %>
+      <%= form_with model: [@user, @grant], url: user_grant_path(@user, @grant), method: :patch, local: true do |form| %>
+        <%= form.hidden_field :user_id, value: @user.id %>
+        
+        <%= render "grants/form", grant: @grant, form: form %>
 
-  <div>
-    <%= link_to "詳細に戻る", user_path, class: "btn btn-outline-primary btn-sm" %>
+      <% end %>
+
+        <div>
+          <%= link_to "詳細に戻る", user_path, class: "text-decoration-none" %>
+        </div>
+
+    </div>
   </div>
+</div>

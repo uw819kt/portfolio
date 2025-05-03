@@ -48,6 +48,7 @@ class ApprovalsController < ApplicationController
   end
 
   def edit
+    @paid_leave = PaidLeave.find(params[:id])
     @approval = Approval.find(params[:id])
   end
 
@@ -72,7 +73,7 @@ class ApprovalsController < ApplicationController
   def set_approval
     @approval = Approval.find(params[:id])
   end
-  
+
   def approval_params
     params.require(:approval).permit(:user_id, :paid_leave_id, :request_id, :request_date, :acquisition_date, :paid_remarks, :paid_applicable, :paid_confirm)
   end

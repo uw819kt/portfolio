@@ -1,6 +1,6 @@
-<h1>有給休暇取得一覧画面</h1>
+<h1 class="text-center">有給休暇取得一覧画面</h1>
 
-<%= Date.today %>
+<h5><%= Date.today %></h5>
 
 <!-- 未承認の有給の数を管理者のみ表示 -->
 <% if @unapproved_request_count.positive? %>
@@ -9,9 +9,9 @@
   </p>
 <% end %>
 
-<table>
+<table class="table table-striped mt-3">
   <thead>
-    <tr>
+    <tr class="table-primary">
       <th>No</th>
       <!-- <th><%= "社員番号" %></th> -->
       <th><%= "名前" %></th>
@@ -30,8 +30,8 @@
     </tr>
   </thead>
 
-<% @paid_leaves.each_with_index do |paid_leave, index| %>
   <tbody>
+  <% @paid_leaves.each_with_index do |paid_leave, index| %>  
     <tr>
       <td><%= index + 1 %></td>
       <td><%= paid_leave.user.name %></td>
@@ -49,10 +49,12 @@
       <% end %>
 
       <td>
-        <%= link_to "詳細（承認済）", paid_leave_approval_path(paid_leave, 0) %>
-        <%= link_to "申請中", request_path(paid_leave) %>
+        <%= link_to "承認済", paid_leave_approval_path(paid_leave, 0), class: "btn btn-outline-primary btn-sm mb-1" %>
+        <%= link_to "申請中", request_path(paid_leave), class: "btn btn-outline-primary btn-sm mb-1" %>
       </td>
     </tr>
+  <% end %>
   </tbody> 
-<% end %>
+</table>
+
 
