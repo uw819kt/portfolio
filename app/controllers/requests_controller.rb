@@ -1,6 +1,11 @@
 class RequestsController < ApplicationController
   def index
     @request = Request.without_approval
+
+    # 社員ごとの残日数を計算
+    @remaining_leave_days = @request.map do |request|
+      { remaining_days: request.user.paid_leave.remaining_leave_days }
+    end
   end
 
   def show
@@ -8,6 +13,9 @@ class RequestsController < ApplicationController
     @user = @paid_leave.user
     @request = @user.requests
     @grant = @paid_leave.grant
+
+    @approval_count = Approval.where(paid_leave_id:  @paid_leave.id).count
+    @achievements = (@grant.granted_piece) - (@approval_count)
   end
 
   def new

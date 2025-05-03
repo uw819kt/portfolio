@@ -6,7 +6,12 @@
   <%= f.submit '検索', class: 'btn btn-outline-primary mt-2 mb-2' %>
 <% end %>
 
-<h5><%= params.dig(:q, :check_time_eq).presence || Date.today %></h5>
+<h5><%= l(
+  params.dig(:q, :check_time_eq).present? ?
+  Date.parse(params.dig(:q, :check_time_eq)) :
+  Date.today,
+  format: :long
+) %></h5>
 
 <table class="table table-striped m-0">
   <tbody>
@@ -54,11 +59,11 @@
     
         <%# 運転前ログがあるか？ %>
         <% if be_log %>
-          <td><%= be_log.check_time %></td>
-          <td><%= be_log.confirmation %></td>
+          <td><%= l be_log.check_time, format: :short %></td>
+          <td><%= be_log.confirmation_i18n %></td>
           <td><%= be_log.detector_used ? '有' : '無' %></td>
           <td><%= be_log.result %></td>
-          <td><%= be_log.condition %></td>
+          <td><%= be_log.condition_i18n %></td>
           <td><%= be_log.log_remarks %></td>
           <td></td>
         <% else %>
@@ -68,11 +73,11 @@
     
         <%# 運転後ログがあるか？ %>
         <% if af_log %>
-          <td><%= af_log.check_time %></td>
-          <td><%= af_log.confirmation %></td>
+          <td><%= l af_log.check_time, format: :short %></td>
+          <td><%= af_log.confirmation_i18n %></td>
           <td><%= af_log.detector_used ? '有' : '無' %></td>
           <td><%= af_log.result %></td>
-          <td><%= af_log.condition %></td>
+          <td><%= af_log.condition_i18n %></td>
           <td><%= af_log.log_remarks %></td>
           <td></td>
           <td></td>

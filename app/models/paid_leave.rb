@@ -32,6 +32,12 @@ class PaidLeave < ApplicationRecord
       .count
   end
 
+  def remaining_leave_days # 残日数を計算する
+    granted_piece = grant&.granted_piece || 0
+    approval_count = approvals.count
+    granted_piece - approval_count
+  end
+
   def paid_totalling(month) # 有給取得月間集計
     return nil unless grant&.granted_day
 

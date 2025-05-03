@@ -10,7 +10,7 @@
         </div>
         <div class="card-body">
           <p><strong>氏名:</strong> <%= @user.name %></p>
-          <p><strong>部署:</strong> <%= @user.department %></p>
+          <p><strong>部署:</strong> <%= @user.department_i18n %></p>
           <p><strong>メール:</strong> <%= @user.email %></p>
 
           <%= link_to "基本情報を編集", edit_user_path(@user), class: "btn btn-outline-primary mt-3 w-100" %>
@@ -37,9 +37,9 @@
           <h5 class="card-title mb-0">有給休暇基礎情報</h5>
         </div>
         <div class="card-body">
-          <p><strong>入社日:</strong> <%= @paid_leave&.joining_date %></p>
-          <p><strong>基準日:</strong> <%= @paid_leave&.base_date %></p>
-          <p><strong>勤務形態:</strong> <%= @paid_leave&.classification %></p>
+          <p><strong>入社日:</strong> <%= l @paid_leave&.joining_date, format: :long %></p>
+          <p><strong>基準日:</strong> <%= l @paid_leave&.base_date, format: :long %></p>
+          <p><strong>勤務形態:</strong> <%= @paid_leave&.classification_i18n %></p>
           <p><strong>パート区分:</strong> <%= @paid_leave&.part_time ? 'パート' : 'フルタイム' %></p>
           <small class="text-muted">※パート勤務の人のみ</small><br>
 
@@ -54,7 +54,7 @@
         <div class="card-body">
           <% if @grant.present? %>
             <p><strong>付与日数:</strong> <%= @grant.granted_piece %></p>
-            <p><strong>付与日:</strong> <%= @grant.granted_day %></p>
+            <p><strong>付与日:</strong> <%= l @grant.granted_day, format: :long %></p>
 
             <%= link_to "有給休暇付与情報を編集", edit_user_grant_path(@user, @grant), class: "btn btn-outline-primary mt-3 w-100" %>
           <% else %>
