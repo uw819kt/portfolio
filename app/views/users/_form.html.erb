@@ -11,7 +11,7 @@
 
   <div>
     <%= form.label :name %></br>
-    <%= form.text_field :name, required: true, placeholder: "必須" %>
+    <%= form.text_field :name, required: true, placeholder: "必須", class: "form-control" %>
   </div>
 
   <div>
@@ -21,8 +21,8 @@
 
   <div>
     <%= form.label :email %></br>
-    <%= form.email_field :email, required: true, placeholder: "必須" %>
+    <%= form.email_field :email, required: true, placeholder: "必須", class: "form-control" %>
   </div>
 
-  <%= form.submit class: "btn btn-outline-primary mt-4" %>
+  <%= form.submit class: "btn btn-outline-primary mt-4 mb-3 w-100" %>
 <% end %>

@@ -1,12 +1,20 @@
 <%= form_with(model: @paid_leave, remote: false) do |form| %>
 
-  <h1>有給休暇基礎情報編集フォーム</h1>
+  <h1 class="text-center">有給休暇基礎情報編集フォーム</h1>
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
    
-  <%= render "paid_leaves/errors", paid_leave: @paid_leave %>
+        <%= render "paid_leaves/errors", paid_leave: @paid_leave %>
 
-  <%= render "paid_leaves/form", paid_leave: @paid_leave, form: form %>
+        <%= render "paid_leaves/form", paid_leave: @paid_leave, form: form %>
 
-  <div>
-    <%= link_to "詳細に戻る", user_path, class: "btn btn-outline-primary btn-sm" %>
+        <div>
+          <%= link_to "詳細に戻る", user_path, class: "text-decoration-none" %>
+        </div>
+      <% end %>
+
+      </div>
+    </div>
   </div>
-<% end %>

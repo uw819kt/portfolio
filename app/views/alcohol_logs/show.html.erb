@@ -1,13 +1,23 @@
-<h1>酒気帯び確認記録表（個人）</h1>
-<p class="d-flex justify-content-end">興和電気株式会社</p>
+<h1 class="text-center">酒気帯び確認記録表（個人）</h1>
 
-<p class="d-flex justify-content-end text-decoration-underline"><%= "部署" %>&nbsp;&nbsp;<%= @user.name %></p>
-<p class="d-flex justify-content-end text-decoration-underline"><%= "氏名" %>&nbsp;&nbsp;<%= @user.department %></p>
+<h6 class="d-flex justify-content-end mb-3">興和電気株式会社</h6>
 
-<!-- date -->
+<div class="container">
+  <div class="row mb-2 justify-content-end">
+    <div class="col-2 fw-bold text-start  border-bottom border-dark">部署</div>
+    <div class="col-2 text-start border-bottom border-dark"><%= @user.department %></div>
+  </div>
+
+  <div class="row mb-2 justify-content-end">
+    <div class="col-2 fw-bold text-start  border-bottom border-dark">氏名</div>
+    <div class="col-2 text-start border-bottom border-dark"><%= @user.name %></div>
+  </div>
+</div>
+
+<h5><%=  Date.today %></h5>
 
 <table class="table table-striped m-0">
-<tbody>
+  <tbody>
     <tr class="table-primary">
       <td colspan="7"><%= "運転前" %></td>
       <td></td>
@@ -35,8 +45,10 @@
       <td><%= "安全運転管理者" %></td>
     </tr>
 
-    <% (0..29).each do |i| %>
-      <% day = Time.zone.today - i.days %>
+    <% start_date = Time.zone.today.beginning_of_month %>
+    <% end_date = Time.zone.today.end_of_month %>
+
+    <% (start_date..end_date).each do |day| %>
       <% be_log = @drive_be_log.find { |log| log.check_time.to_date == day } %>
       <% af_log = @drive_af_log.find { |log| log.check_time.to_date == day } %>
     
@@ -50,7 +62,7 @@
           <td><%= be_log.condition %></td>
           <td><%= be_log.log_remarks %></td>
           <td></td><!-- 空欄 -->
-          <td><%= link_to "編集（運転前）", edit_drive_be_log_path(be_log.id), class: "btn btn-outline-primary btn-sm" %></td>
+          <td><%= link_to "編集（前）", edit_drive_be_log_path(be_log.id), class: "btn btn-outline-primary btn-sm" %></td>
         <% else %>
           <td colspan="7"></td>
           <td></td>
@@ -66,7 +78,7 @@
           <td><%= af_log.log_remarks %></td>
           <td></td><!-- 空欄 -->
           <td></td><!-- 空欄 -->
-          <td><%= link_to "編集（運転後）", edit_drive_af_log_path(af_log.id), class: "btn btn-outline-primary btn-sm" %></td>
+          <td><%= link_to "編集（後）", edit_drive_af_log_path(af_log.id), class: "btn btn-outline-primary btn-sm" %></td>
         <% else %>
           <td colspan="7"></td>
           <td></td>

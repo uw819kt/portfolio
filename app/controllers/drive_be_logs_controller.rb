@@ -21,7 +21,7 @@ class DriveBeLogsController < ApplicationController
 
   def update
     if @drive_be_log.update(drive_be_log_params)
-      redirect_to alcohol_log_path(@user), notice: "運転前の記録を更新しました" 
+      redirect_to alcohol_log_path(@user), notice: "運転前の記録を更新しました"
     else
       render :edit, status: :unprocessable_entity
     end

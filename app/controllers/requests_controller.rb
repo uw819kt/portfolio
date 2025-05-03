@@ -1,5 +1,4 @@
 class RequestsController < ApplicationController
-
   def index
     @request = Request.without_approval
   end
@@ -8,6 +7,7 @@ class RequestsController < ApplicationController
     @paid_leave = PaidLeave.find(params[:id])
     @user = @paid_leave.user
     @request = @user.requests
+    @grant = @paid_leave.grant
   end
 
   def new
@@ -26,7 +26,7 @@ class RequestsController < ApplicationController
       flash[:alert] = "申請情報を入力してください。"
       return render :new, status: :unprocessable_entity
     end
-  
+
     if @request.save
       redirect_to root_path, notice: "申請を送信しました。"
     else
