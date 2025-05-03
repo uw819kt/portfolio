@@ -20,9 +20,13 @@
       <tr>
         <td><%= index + 1 %></td>
         <th><%= request.user.name %></th>
-        <td><%= request.request_date %></td>
-        <td><%= request.acquisition_date %></td>
-        <td id="target"><%= "合計日数" %></td>
+        <td><%= l request.request_date, format: :long %></td>
+        <td><%= l request.acquisition_date, format: :long %></td>
+        <td id="target">
+          <% @remaining_leave_days.each do |leave_info| %>
+            <%= leave_info[:remaining_days] %>
+          <% end %>
+        </td>
         <td></td> <!-- 空のセル -->
         <td></td> <!-- 空のセル -->
         <td><%= request.paid_remarks %></td>

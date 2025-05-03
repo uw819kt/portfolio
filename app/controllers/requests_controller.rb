@@ -1,6 +1,11 @@
 class RequestsController < ApplicationController
   def index
     @request = Request.without_approval
+
+    # 社員ごとの残日数を計算
+    @remaining_leave_days = @request.map do |request|
+      { remaining_days: request.user.paid_leave.remaining_leave_days }
+    end
   end
 
   def show
