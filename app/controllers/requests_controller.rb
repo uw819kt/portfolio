@@ -14,7 +14,7 @@ class RequestsController < ApplicationController
     @request = @user.requests.without_approval
     @grant = @paid_leave.grant
 
-    @approval_count = Approval.where(paid_leave_id:  @paid_leave.id).count
+    @approval_count = Approval.where(paid_leave_id:  @paid_leave.id, paid_applicable: true).count
     @achievements = (@grant.granted_piece) - (@approval_count)
   end
 
