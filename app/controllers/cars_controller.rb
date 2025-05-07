@@ -12,10 +12,11 @@ class CarsController < ApplicationController
 
     if @car.save
       flash[:notice] = "車両番号を登録しました。"
-      redirect_to new_user_paid_leafe_path(user_id: @user.id)
+      redirect_to new_user_paid_leave_path(user_id: @user.id)
     else
-      flash[:alert] = "車両番号を登録出来ませんでした。"
-      render :new, status: :unprocessable_entity
+      @user.destroy
+      flash[:alert] = "車両番号を登録出来ませんでした。最初からやり直してください。"
+      redirect_to new_user_path
     end
   end
 
