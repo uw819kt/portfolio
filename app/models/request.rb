@@ -5,7 +5,6 @@ class Request < ApplicationRecord
 
   validates :request_date, presence: true
   validates :paid_remarks, length: { maximum: 255 }
-  validates :paid_applicable, inclusion: { in: [ true, false ] }
 
   scope :without_approval, -> { left_outer_joins(:approval).where(approvals: { id: nil }) }
 
