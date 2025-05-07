@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   devise_for :admins
+  passwordless_for :users
 
   scope :admins do
     resources :users do

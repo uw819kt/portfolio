@@ -1,0 +1,22 @@
+<h2 class="text-center">ログインリンクを送信</h2>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+
+      <%= form_with(model: @session, url: url_for(action: 'new'), data: { turbo: 'false' }) do |f| %>
+        <% email_field_name = :"passwordless[#{email_field}]" %>
+        <%= f.label email_field_name,
+            "メールアドレス",
+            for: "passwordless_#{email_field}" %>
+        <%= email_field_tag email_field_name,
+            params.fetch(email_field_name, nil),
+            required: true,
+            autofocus: true,
+            placeholder: "例）user@example.com", class: "form-control" %>
+        <%= f.submit class: "btn btn-outline-primary mt-4 mb-3 w-100" %>
+      <% end %>
+
+    </div>
+  </div>
+</div>

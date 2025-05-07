@@ -19,13 +19,21 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    if @user.save
-      flash[:notice] = "基本情報を登録しました。"
-      redirect_to new_user_car_path(user_id: @user.id)
-    else
-      flash[:alert] = "基本情報を登録出来ませんでした"
-      render :new, status: :unprocessable_entity
+  if @user.save
+    Passwordless::Session.create!(
+      authenticatable: @user,
+      user_agent: request.user_agent,
+      remote_addr: request.remote_ip
+    ).tap do |session|
+      Passwordless::Mailer.magic_link(session).deliver_later
     end
+
+    flash[:notice] = "登録完了!ログインリンクをメールで送信しました。"
+    redirect_to root_path
+  else
+    flash[:alert] = "登録出来ませんでした"
+    render :new, status: :unprocessable_entity
+  end
   end
 
   def edit

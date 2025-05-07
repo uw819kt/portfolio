@@ -1,20 +1,21 @@
-<%= form_with(model: @drive_af_log, remote: false) do |form| %>
 
-  <%= render "errors", drive_af_log: @drive_af_log %>
-   
-  <h1 class="text-center">酒気帯び記録入力フォーム（運転後）</h1>
+<h1 class="text-center">酒気帯び記録入力フォーム（運転後）</h1>
+
+<%= render "errors", drive_af_log: @drive_af_log %>
 
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-8">
 
-      <%= render "form", drive_af_log: @drive_af_log, form: form %>
+        <%= form_with(model: @drive_af_log, remote: false) do |form| %>
 
-<% end %>
+        <%= render "form", drive_af_log: @drive_af_log, form: form %>
 
-  <div>
-    <%= link_to "戻る", alcohol_logs_path, class: "text-decoration-none" %>
-  </div>
+        <div>
+          <%= link_to "戻る", alcohol_logs_path, class: "text-decoration-none" %>
+        </div>
+
+        <% end %>
 
       </div>
     </div>

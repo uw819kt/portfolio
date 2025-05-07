@@ -10,6 +10,8 @@ class User < ApplicationRecord
   validates :name, :department, :email, presence: true
   validates :name, :email, length: { maximum: 255 }
 
+  passwordless_with :email
+
   enum :department, {
     sales: 0,
     air_conditioning: 1,
