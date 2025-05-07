@@ -9,8 +9,8 @@ class UsersController < ApplicationController
 
   def show
     @paid_leave = @user.paid_leave
-    @car = @user.car
-    @grant = Grant.find_by(user_id: @user.id, paid_leave_id: @paid_leave.id)
+    @car = @user.car || @user.build_car
+    @grant = Grant.find_by(user_id: @user.id, paid_leave_id: @user.paid_leave&.id)
   end
 
   def new

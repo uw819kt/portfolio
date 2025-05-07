@@ -17,7 +17,7 @@
       <td><%= user.department_i18n %></td>
       <td><%= user.email %></td>
       <td><%= user.car&.private_car.presence || user.car&.company_car %></td>
-      <td><%= l user.paid_leave&.joining_date, format: :long %></td>
+      <td><%= l(user.paid_leave.try(:joining_date), format: :long) if user.paid_leave&.joining_date %></td>
     
       <td>
         <%= link_to "詳細", user_path(user), class: "btn btn-outline-primary btn-sm mb-1" %>
