@@ -4,6 +4,12 @@ class GrantsController < ApplicationController
   def new
     @user = User.find(params[:user_id])
     @paid_leave = @user.paid_leave
+
+    if @paid_leave.nil?
+      redirect_to user_path(@user), alert: "有給休暇基礎情報が存在しません。先に登録してください。"
+      return
+    end
+
     @grant = @user.build_grant(paid_leave_id: @paid_leave.id)
 
     # 有給付与日数をUserモデルのメソッドで計算
