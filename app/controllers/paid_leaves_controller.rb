@@ -22,8 +22,9 @@ class PaidLeavesController < ApplicationController
       flash[:notice] = "有給休暇情報を登録しました。"
       redirect_to new_user_grant_path(user_id: @user.id)
     else
-      flash[:alert] = "有給休暇情報を登録出来ませんでした。"
-      render :new, status: :unprocessable_entity
+      @user.destroy
+      flash[:alert] = "有給休暇情報を登録出来ませんでした。最初からやり直してください。"
+      redirect_to new_user_path
     end
   end
 
