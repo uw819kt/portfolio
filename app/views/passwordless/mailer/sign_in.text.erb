@@ -1,1 +1,7 @@
-<%= t("passwordless.mailer.sign_in.body", token: @token, magic_link: @magic_link) %>
+ログイン案内
+
+以下のリンクをクリックしてログインしてください：
+
+<%= @magic_link %>
+
+このリンクは一定時間で無効になります。

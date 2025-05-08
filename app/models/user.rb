@@ -7,8 +7,9 @@ class User < ApplicationRecord
   has_many :drive_be_logs, dependent: :destroy
   has_many :drive_af_logs, dependent: :destroy
 
-  validates :name, :department, :email, presence: true
+  validates :name, :department, presence: true
   validates :name, :email, length: { maximum: 255 }
+  validates :email, presence: true, uniqueness: { case_sensitive: false }
 
   passwordless_with :email
 
@@ -34,13 +35,13 @@ class User < ApplicationRecord
     reference = (paid_leave.base_date - paid_leave.joining_date).to_i/ 365.25
     years_of_service = reference.round(1)
   end
-  
+
   def part_time_plan(classification) # 有給休暇付与予定日数
     years = self.years_of_service.to_f
 
     case classification
     when "4days_w" # 週4日＆30時間以下の場合
-      return case years
+      case years
       when 0.5...1.5 then 7
       when 1.5...2.5 then 8
       when 2.5...3.5 then 9
@@ -50,7 +51,7 @@ class User < ApplicationRecord
       else 15
       end
     when "3days_w" # 週3日＆30時間以下の場合
-      return case years
+      case years
       when 0.5...1.5 then 5
       when 1.5...2.5 then 6
       when 2.5...3.5 then 6
@@ -60,7 +61,7 @@ class User < ApplicationRecord
       else 11
       end
     when "2days_w" # 週2日＆30時間以下の場合
-      return case years
+      case years
       when 0.5...1.5 then 3
       when 1.5...2.5 then 4
       when 2.5...3.5 then 4
@@ -70,7 +71,7 @@ class User < ApplicationRecord
       else 7
       end
     when "1days_w" # 週1日＆30時間以下の場合
-      return case years
+      case years
       when 0.5...1.5 then 1
       when 1.5...2.5 then 2
       when 2.5...4.5 then 2
@@ -78,9 +79,9 @@ class User < ApplicationRecord
       else 3
       end
     else
-      return 0
-    end    
-  end  
+      0
+    end
+  end
 
   def full_time_plan # 有給休暇付与予定日数
     years = self.years_of_service.to_f

@@ -43,7 +43,7 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   if Rails.env.development?
-    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+    mount LetterOpenerWeb::Engine, at: "/letter_opener", protocol: 'https'
   end
 end
 # ローカルでつなぐとき
