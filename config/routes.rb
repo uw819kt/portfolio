@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   devise_for :admins
+  passwordless_for :users
 
   scope :admins do
     resources :users do
@@ -40,6 +41,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener", protocol: 'https'
+  end
 end
 # ローカルでつなぐとき
 # https://cucumber.localhost:3000

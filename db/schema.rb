@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_04_21_125615) do
+ActiveRecord::Schema[7.2].define(version: 2025_05_07_115728) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -104,6 +104,20 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_21_125615) do
     t.index ["user_id"], name: "index_paid_leaves_on_user_id"
   end
 
+  create_table "passwordless_sessions", force: :cascade do |t|
+    t.string "authenticatable_type"
+    t.integer "authenticatable_id"
+    t.datetime "timeout_at", precision: nil, null: false
+    t.datetime "expires_at", precision: nil, null: false
+    t.datetime "claimed_at", precision: nil
+    t.string "token_digest", null: false
+    t.string "identifier", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["authenticatable_type", "authenticatable_id"], name: "authenticatable"
+    t.index ["identifier"], name: "index_passwordless_sessions_on_identifier", unique: true
+  end
+
   create_table "requests", force: :cascade do |t|
     t.date "request_date", null: false
     t.date "acquisition_date", null: false
@@ -124,7 +138,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_21_125615) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "approvals", "paid_leaves", column: "paid_leave_id"
+  add_foreign_key "approvals", "paid_leaves"
   add_foreign_key "approvals", "requests"
   add_foreign_key "approvals", "users"
   add_foreign_key "cars", "users"
@@ -132,9 +146,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_21_125615) do
   add_foreign_key "drive_af_logs", "users"
   add_foreign_key "drive_be_logs", "cars"
   add_foreign_key "drive_be_logs", "users"
-  add_foreign_key "grants", "paid_leaves", column: "paid_leave_id"
+  add_foreign_key "grants", "paid_leaves"
   add_foreign_key "grants", "users"
   add_foreign_key "paid_leaves", "users"
-  add_foreign_key "requests", "paid_leaves", column: "paid_leave_id"
+  add_foreign_key "requests", "paid_leaves"
   add_foreign_key "requests", "users"
 end

@@ -39,7 +39,11 @@ gem "bootsnap", require: false
 # Search function
 gem "ransack"
 
+# Enuma translation
 gem "enum_help"
+
+# Magic_link
+gem "passwordless"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -58,6 +62,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "letter_opener_web"
 end
 
 group :test do
