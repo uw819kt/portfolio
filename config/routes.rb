@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :admins
-  passwordless_for :users
+  devise_for :admins, controllers: { sessions: "admins/sessions" }
+  passwordless_for :users, controllers: { sessions: "users/sessions" }
 
   scope :admins do
     resources :users do
@@ -43,7 +43,7 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   if Rails.env.development?
-    mount LetterOpenerWeb::Engine, at: "/letter_opener", protocol: 'https'
+    mount LetterOpenerWeb::Engine, at: "/letter_opener", protocol: "https"
   end
 end
 # ローカルでつなぐとき
