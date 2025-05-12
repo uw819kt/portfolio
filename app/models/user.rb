@@ -23,7 +23,7 @@ class User < ApplicationRecord
     }
 
   def admin? # is_adminカラムで判定
-    self.is_admin == "admin"
+    is_admin
   end
 
   def calculated_granted_days(paid_leave) # 付与日数計算

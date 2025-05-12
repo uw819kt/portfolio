@@ -1,4 +1,5 @@
 class GrantsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_grant, only: %i[ new create edit update ]
 
   def new

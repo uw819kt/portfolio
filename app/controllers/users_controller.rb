@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
+  before_action :require_admin!
   before_action :set_user, only: %i[ show edit update destroy ]
 
   def index
@@ -43,7 +45,7 @@ class UsersController < ApplicationController
 
   def destroy
     if @user.destroy
-      flash[:notice] = '社員情報の削除が完了しました'
+      flash[:notice] = "社員情報の削除が完了しました"
       redirect_to users_path, status: :see_other
     else
       flash[:danger] = @user.errors.full_messages.to_sentence
@@ -59,5 +61,9 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :department)
+  end
+
+  def require_admin!
+    redirect_to root_path, alert: "アクセス権限がありません。" unless current_user.admin?
   end
 end
