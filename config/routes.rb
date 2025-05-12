@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   devise_for :admins, controllers: { sessions: "admins/sessions" }
-  passwordless_for :users, controllers: { sessions: "users/sessions" }
 
   scope :admins do
     resources :users do
