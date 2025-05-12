@@ -62,7 +62,11 @@
           <td><%= be_log.condition_i18n %></td>
           <td><%= be_log.log_remarks %></td>
           <td></td><!-- 空欄 -->
-          <td><%= link_to "編集（前）", edit_drive_be_log_path(be_log.id), class: "btn btn-outline-primary btn-sm" %></td>
+          <% if be_log.present? && can?(:manage, DriveBeLog) %>
+            <td><%= link_to "編集（前）", edit_drive_be_log_path(be_log.id), class: "btn btn-outline-primary btn-sm" %></td><!-- 管理者のみ表示 -->
+          <% else %>
+            <td></td> <!-- 空のセル -->
+          <% end %>
         <% else %>
           <td colspan="7"></td>
           <td></td>
@@ -78,7 +82,11 @@
           <td><%= af_log.log_remarks %></td>
           <td></td><!-- 空欄 -->
           <td></td><!-- 空欄 -->
-          <td><%= link_to "編集（後）", edit_drive_af_log_path(af_log.id), class: "btn btn-outline-primary btn-sm" %></td>
+          <% if af_log.present? && can?(:manage, DriveAfLog) %>
+            <td><%= link_to "編集（後）", edit_drive_af_log_path(af_log.id), class: "btn btn-outline-primary btn-sm" %></td><!-- 管理者のみ表示 -->
+          <% else %>
+            <td></td> <!-- 空のセル -->
+          <% end %>
         <% else %>
           <td colspan="7"></td>
           <td></td>

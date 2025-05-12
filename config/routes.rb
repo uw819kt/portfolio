@@ -18,8 +18,6 @@ Rails.application.routes.draw do
     resources :approvals, only: [ :new, :create, :edit, :update, :show ]
   end
 
-  resources :alcohol_logs, only: [ :index, :show, :new, :create, :edit, :update ]
-
   resources :paid_leaves, only: [ :index, :edit, :update ]
   root to: "paid_leaves#index"
 
