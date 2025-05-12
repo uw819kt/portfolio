@@ -12,6 +12,8 @@
           <p><strong>氏名:</strong> <%= @user.name %></p>
           <p><strong>部署:</strong> <%= @user.department_i18n %></p>
           <p><strong>メール:</strong> <%= @user.email %></p>
+          <p><strong>管理者権限:</strong> <%= @user.is_admin ? "あり" : "なし" %></p>
+
 
           <%= link_to "基本情報を編集", edit_user_path(@user), class: "btn btn-outline-primary mt-3 w-100" %>
         </div>

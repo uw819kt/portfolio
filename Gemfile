@@ -43,7 +43,10 @@ gem "ransack"
 gem "enum_help"
 
 # Magic_link
-gem "passwordless"
+gem "devise-passwordless"
+
+# Division of roles
+gem "cancancan"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

@@ -1,4 +1,5 @@
 class ApprovalsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_paid_leave, only: %i[ new create show ]
   before_action :set_approval, only: %i[ edit update ]
 
@@ -17,7 +18,7 @@ class ApprovalsController < ApplicationController
 
   def create
     @request = Request.find(approval_params[:request_id])
-    
+
     approval_attributes = approval_params.merge(
       user_id: @paid_leave.user_id,
       request_date: @request&.request_date,

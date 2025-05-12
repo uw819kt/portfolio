@@ -1,7 +1,9 @@
-class UserMailer < ApplicationMailer
-#   def welcome(user)
-#     @user = user
-#     @url  = login_url
-#     mail(to: @user.email, subject: "登録完了")
-#   end
+class UserMailer < Devise::Mailer
+  helper :application
+  default template_path: "devise/mailer"
+
+  def magic_link(record, token, opts = {})
+    opts[:subject] = "ログイン用リンクのご案内"
+    super
+  end
 end

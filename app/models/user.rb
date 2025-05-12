@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  devise :magic_link_authenticatable
+
   has_one :paid_leave, dependent: :destroy
   has_many :requests, dependent: :destroy
   has_one :grant, dependent: :destroy
@@ -11,8 +13,6 @@ class User < ApplicationRecord
   validates :name, :email, length: { maximum: 255 }
   validates :email, presence: true, uniqueness: { case_sensitive: false }
 
-  passwordless_with :email
-
   enum :department, {
     sales: 0,
     air_conditioning: 1,
@@ -22,6 +22,9 @@ class User < ApplicationRecord
     others: 5
     }
 
+  def admin? # is_adminカラムで判定
+    is_admin
+  end
 
   def calculated_granted_days(paid_leave) # 付与日数計算
     if paid_leave.part_time?

@@ -1,19 +1,15 @@
 class ApplicationController < ActionController::Base
-  include Passwordless::ControllerHelpers
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
 
-  helper_method :current_user
+  protected
 
-  private
-
-  def current_user
-    @current_user ||= authenticate_by_session(User)
+  def after_magic_link_sent_path_for(resource)
+    flash[:notice] = "ログイン用リンクをメールアドレス宛に送信しました。メールをご確認ください。"
+    new_user_session_path
   end
 
-  def require_user!
-    return if current_user
-    save_passwordless_redirect_location!(User) # <-- optional, see below
-    redirect_to root_path, alert: "ログインしてください。"
+  def after_sign_out_path_for(resource_or_scope)# ログイン画面のパス
+    new_user_session_path
   end
 end

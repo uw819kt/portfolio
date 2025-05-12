@@ -85,6 +85,7 @@ GEM
     brakeman (7.0.2)
       racc
     builder (3.3.0)
+    cancancan (3.6.1)
     capybara (3.40.0)
       addressable
       matrix
@@ -112,6 +113,9 @@ GEM
     devise-i18n (1.13.0)
       devise (>= 4.9.0)
       rails-i18n
+    devise-passwordless (1.1.0)
+      devise
+      globalid
     diff-lcs (1.6.1)
     drb (2.2.1)
     enum_help (0.0.19)
@@ -183,9 +187,6 @@ GEM
     parser (3.3.7.3)
       ast (~> 2.4.1)
       racc
-    passwordless (1.8.1)
-      bcrypt (>= 3.1.11)
-      rails (>= 5.1.4)
     pg (1.5.9)
     pp (0.6.2)
       prettyprint
@@ -353,16 +354,17 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   brakeman (= 7.0.2)
+  cancancan
   capybara
   debug
   devise
   devise-i18n
+  devise-passwordless
   enum_help
   factory_bot_rails
   importmap-rails
   jbuilder
   letter_opener_web
-  passwordless
   pg (~> 1.1)
   puma (>= 5.0)
   rails (~> 7.2.2, >= 7.2.2.1)

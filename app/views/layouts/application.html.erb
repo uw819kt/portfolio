@@ -24,8 +24,8 @@
       <div class="d-flex justify-content-center align-items-center" style="height: 200px;">
         <%= image_tag "icon.png", alt: "App Icon", width: 120, height: 120, class: "me-2" %>
       </div>
-      
-      <% if current_admin %>
+      <% if user_signed_in? %>
+      <% if current_user&.admin? %>
         <!-- 管理者向けメニュー -->
         <div class="nav flex-column">
           <%= link_to "社員情報一覧", users_path, class: "nav-link text-white" %>
@@ -35,26 +35,24 @@
           <%= link_to "酒気帯び記録表入力状況一覧", alcohol_logs_path, class: "nav-link text-white" %>
           <%= link_to "有給休暇取得申請", new_request_path, class: "nav-link text-white" %>
           <%= link_to "有給休暇取得状況一覧", root_path, class: "nav-link text-white" %>
-          <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, data: { turbo_method: :delete }, class: "nav-link text-danger" %>
+          <%= link_to "ログアウト", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "nav-link text-danger" %>
         </div>
 
-      <% elsif current_user %>
+      <% else %>
         <!-- 社員向けメニュー -->
         <div class="nav flex-column mb-4">
           <%= link_to "酒気帯び記録表入力(運転前)", new_drive_be_log_path, class: "nav-link text-white" %>
           <%= link_to "酒気帯び記録表入力(運転後)", new_drive_af_log_path, class: "nav-link text-white" %>
           <%= link_to "酒気帯び記録表入力状況一覧", alcohol_logs_path, class: "nav-link text-white" %>
-          <%= link_to "有給休暇取得申請", new_request_path, class: "nav-link text-white" %>
-          <%= link_to "有給休暇取得状況一覧", root_path, class: "nav-link text-white" %>
-          <%= link_to "ログアウト", users_sign_out_path, method: :delete, data: { turbo_method: :delete }, class: "nav-link text-danger" %>
-        </div>
 
-      <% else %>
-        <!-- ログイン前 -->
-        <div class="text-white">
-          <%= link_to "社員ログイン", users_sign_in_path, class: "nav-link text-white" %>
-          <%= link_to "管理者ログイン", new_admin_session_path, class: "nav-link text-white" %>
+          <% if current_user.grant.present? %>  <!-- grantモデルが存在する場合 -->
+            <%= link_to "有給休暇取得申請", new_request_path, class: "nav-link text-white" %>
+          <% end %>
+
+          <%= link_to "有給休暇取得状況一覧", root_path, class: "nav-link text-white" %>
+          <%= link_to "ログアウト", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "nav-link text-danger" %>
         </div>
+      <% end %>
       <% end %>
     </nav>
 

@@ -1,4 +1,5 @@
 class DriveBeLogsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_drive_be_log, only: %i[ edit update ]
 
   def new

@@ -1,4 +1,6 @@
 class RequestsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @request = Request.without_approval
 

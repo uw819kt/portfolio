@@ -1,4 +1,5 @@
 class DriveAfLogsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_drive_af_log, only: %i[ edit update ]
 
   def new
@@ -21,7 +22,7 @@ class DriveAfLogsController < ApplicationController
 
   def update
     if @drive_af_log.update(drive_af_log_params)
-      redirect_to alcohol_log_path(@user), notice: "運転後の記録を更新しました" 
+      redirect_to alcohol_log_path(@user), notice: "運転後の記録を更新しました"
     else
       render :edit, status: :unprocessable_entity
     end

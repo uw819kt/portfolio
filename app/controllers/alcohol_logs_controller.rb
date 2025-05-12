@@ -1,18 +1,20 @@
 class AlcoholLogsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     if params[:q]&.dig(:check_time_eq).present?
       date = Date.parse(params[:q][:check_time_eq])
     else
       date = Date.current
     end
-  
+
     # 全ユーザー取得
     @users = User.includes(:drive_be_logs, :drive_af_logs)
-  
+
     # 指定日のログを事前に検索しておく
     @be_logs = DriveBeLog.where(check_time: date.all_day).index_by(&:user_id)
     @af_logs = DriveAfLog.where(check_time: date.all_day).index_by(&:user_id)
-  
+
     # Ransack用に @q だけ使う（検索フォーム用）
     @q = DriveBeLog.ransack(params[:q])
   end

@@ -1,4 +1,5 @@
 class PaidLeavesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_paid_leave, only: %i[ show edit update ]
 
   def index
