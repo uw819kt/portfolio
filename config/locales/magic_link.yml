@@ -3,3 +3,6 @@ ja:
     passwordless:
       magic_link_sent: ログイン認証メールを送信しました。
       not_found_in_database: メールアドレスが違います。
+    mailer:
+      magic_link:
+        subject: ログイン用リンクのご案内

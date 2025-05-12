@@ -47,4 +47,4 @@ Rails.application.routes.draw do
   end
 end
 # ローカルでつなぐとき
-# https://cucumber.localhost:3000
+# https://cucumber.localhost:3000/users/sign_in
