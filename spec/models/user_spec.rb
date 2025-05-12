@@ -15,4 +15,7 @@ RSpec.describe User, type: :model do
   it { is_expected.to validate_presence_of :department }
   it { is_expected.to validate_length_of(:name).is_at_most(255) }
   it { is_expected.to validate_length_of(:email).is_at_most(255) }
+  it { is_expected.to allow_value("true").for(:is_admin) }
+  it { is_expected.to allow_value("false").for(:is_admin) }
+  it { is_expected.not_to allow_value(nil).for(:is_admin) }
 end

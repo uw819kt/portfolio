@@ -7,18 +7,13 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-Admin.create!( # arima
-  name: "admin",
-  email: "admin@example.com",
-  password: "password",
-  password_confirmation: "password"
-)
 
 
 manager = User.create!( # arima
   name: "manager",
   email: "manager@example.com",
-  department: 0
+  department: 0,
+  is_admin: true
 )
 
 normal_1 = User.create!( # hamsaki
