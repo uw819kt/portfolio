@@ -9,7 +9,7 @@ class Ability
     if user.admin?
       can :manage, :all # 管理者：すべて可能
     else
-      can :read, [ AlcoholLog, Approval, PaidLeave ]   # 一般ユーザー：制限有
+      can :read, [ Approval, PaidLeave ]   # 一般ユーザー：制限有
       can :create, [ DriveAfLog, DriveBeLog ]
       can [ :read, :create ], [ Request ]
     end

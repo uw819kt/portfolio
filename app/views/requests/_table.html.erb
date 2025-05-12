@@ -1,4 +1,4 @@
-<table class="table table-striped">
+<table class="table table-striped" style="table-layout: fixed; width: 100%;">
   <thead>
     <tr class="table-primary">
       <th>No</th>
@@ -10,7 +10,7 @@
       <th><%= "備考" %></th>
       <th><%= "通常有給適用" %></th>
       <th><%= "有給申請確認" %></th>
-      <th></th><!-- 管理者のみ表示 -->
+      <th></th>
     </tr>
   </thead>
     
@@ -26,7 +26,11 @@
         <td><%= request.paid_remarks %></td>
         <td><%= request.approval&.paid_applicable ? '適用' : '未適用' %></td>
         <td><%= request.approval&.paid_confirm ? '承認済' : '承認未' %></td>
-        <td><%= link_to "承認する", new_paid_leave_approval_path(@paid_leave.id, request_id: request.id), class: "btn btn-outline-primary btn-sm mb-1" %></td><!-- 管理者のみ表示 -->
+        <% if can? :manage, Request %>
+          <td><%= link_to "承認する", new_paid_leave_approval_path(@paid_leave.id, request_id: request.id), class: "btn btn-outline-primary btn-sm mb-1" %></td><!-- 管理者のみ表示 -->
+        <% else %>
+          <td></td> <!-- 空のセル -->
+        <% end %>
       </tr>      
     <% end %>
   </tbody>

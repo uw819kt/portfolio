@@ -180,7 +180,7 @@ normal_car_12 = Car.create( # nakayama
 
 manager_pl_1 = PaidLeave.create!( # arima
   joining_date: 7.years.ago.change(month: 4, day: 1),
-  base_date: 7.years.ago.change(month: 4, day: 1),
+  base_date: Date.current.change(month: 4, day: 1),
   part_time: false,
   classification: 0,
   user_id: manager.id
@@ -188,7 +188,7 @@ manager_pl_1 = PaidLeave.create!( # arima
 
 normal_pl_1 = PaidLeave.create!( # hamasaki
   joining_date: 7.years.ago.change(month: 4, day: 1),
-  base_date: 7.years.ago.change(month: 4, day: 1),
+  base_date: Date.current.change(month: 4, day: 1),
   part_time: false,
   classification: 0,
   user_id: normal_1.id
@@ -196,7 +196,7 @@ normal_pl_1 = PaidLeave.create!( # hamasaki
 
 normal_pl_2 = PaidLeave.create( # taguti
   joining_date: 7.years.ago.change(month: 4, day: 1),
-  base_date: 7.years.ago.change(month: 4, day: 1),
+  base_date: Date.current.change(month: 4, day: 1),
   part_time: false,
   classification: 0,
   user_id: normal_2.id
@@ -204,7 +204,7 @@ normal_pl_2 = PaidLeave.create( # taguti
 
 normal_pl_3 = PaidLeave.create( # etou
   joining_date: 7.years.ago.change(month: 4, day: 1),
-  base_date: 7.years.ago.change(month: 4, day: 1),
+  base_date: Date.current.change(month: 4, day: 1),
   part_time: false,
   classification: 0,
   user_id: normal_3.id
@@ -212,14 +212,14 @@ normal_pl_3 = PaidLeave.create( # etou
 
 normal_pl_4 = PaidLeave.create( # akimoto
   joining_date: 7.years.ago.change(month: 4, day: 1),
-  base_date: 7.years.ago.change(month: 4, day: 1),
+  base_date: Date.current.change(month: 4, day: 1),
   part_time: false,
   classification: 0,
   user_id: normal_4.id
 )
 normal_pl_5 = PaidLeave.create( # isihara
   joining_date: 7.years.ago.change(month: 4, day: 1),
-  base_date: 7.years.ago.change(month: 4, day: 1),
+  base_date: Date.current.change(month: 4, day: 1),
   part_time: false,
   classification: 0,
   user_id: normal_5.id
@@ -227,7 +227,7 @@ normal_pl_5 = PaidLeave.create( # isihara
 
 normal_pl_6 = PaidLeave.create( # matubara
   joining_date: 7.years.ago.change(month: 4, day: 1),
-  base_date: 7.years.ago.change(month: 4, day: 1),
+  base_date: Date.current.change(month: 4, day: 1),
   part_time: false,
   classification: 0,
   user_id: normal_6.id
@@ -235,7 +235,7 @@ normal_pl_6 = PaidLeave.create( # matubara
 
 normal_pl_7 = PaidLeave.create( # kawata
   joining_date: 7.years.ago.change(month: 4, day: 1),
-  base_date: 7.years.ago.change(month: 4, day: 1),
+  base_date: Date.current.change(month: 4, day: 1),
   part_time: false,
   classification: 0,
   user_id: normal_7.id
@@ -243,7 +243,7 @@ normal_pl_7 = PaidLeave.create( # kawata
 
 normal_pl_8 = PaidLeave.create( # tutiya
   joining_date: 7.years.ago.change(month: 4, day: 1),
-  base_date: 7.years.ago.change(month: 4, day: 1),
+  base_date: Date.current.change(month: 4, day: 1),
   part_time: false,
   classification: 0,
   user_id: normal_8.id
@@ -251,7 +251,7 @@ normal_pl_8 = PaidLeave.create( # tutiya
 
 normal_pl_9 = PaidLeave.create( # hurutani
   joining_date: 7.years.ago.change(month: 4, day: 1),
-  base_date: 7.years.ago.change(month: 4, day: 1),
+  base_date: Date.current.change(month: 4, day: 1),
   part_time: false,
   classification: 0,
   user_id: normal_9.id
@@ -259,7 +259,7 @@ normal_pl_9 = PaidLeave.create( # hurutani
 
 normal_pl_10 = PaidLeave.create( # simizu
   joining_date: 7.years.ago.change(month: 4, day: 1),
-  base_date: 7.years.ago.change(month: 4, day: 1),
+  base_date: Date.current.change(month: 4, day: 1),
   part_time: true,
   classification: 1,
   user_id: normal_10.id
@@ -267,7 +267,7 @@ normal_pl_10 = PaidLeave.create( # simizu
 
 normal_pl_11 = PaidLeave.create( # asano
   joining_date: 7.years.ago.change(month: 4, day: 1),
-  base_date: 7.years.ago.change(month: 4, day: 1),
+  base_date: Date.current.change(month: 4, day: 1),
   part_time: false,
   classification: 0,
   user_id: normal_11.id
@@ -275,7 +275,7 @@ normal_pl_11 = PaidLeave.create( # asano
 
 normal_pl_12 = PaidLeave.create( # nakayama
   joining_date: 7.years.ago.change(month: 4, day: 1),
-  base_date: 7.years.ago.change(month: 4, day: 1),
+  base_date: Date.current.change(month: 4, day: 1),
   part_time: false,
   classification: 0,
   user_id: normal_12.id
