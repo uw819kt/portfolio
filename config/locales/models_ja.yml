@@ -15,6 +15,7 @@ ja:
         name: 氏名
         email: メールアドレス
         department: 部署
+        is_admin: 管理者権限
       paid_leave:
         joining_date: 入社日 
         base_date: 基準日

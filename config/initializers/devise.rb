@@ -24,7 +24,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  config.mailer_sender = "user_confirm@example.com"
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -36,7 +36,7 @@ Devise.setup do |config|
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
-  require 'devise/orm/active_record'
+  require "devise/orm/active_record"
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
@@ -58,12 +58,12 @@ Devise.setup do |config|
   # Configure which authentication keys should be case-insensitive.
   # These keys will be downcased upon creating or modifying a user and when used
   # to authenticate or find a user. Default is :email.
-  config.case_insensitive_keys = [:email]
+  config.case_insensitive_keys = [ :email ]
 
   # Configure which authentication keys should have whitespace stripped.
   # These keys will have whitespace before and after removed upon creating or
   # modifying a user and when used to authenticate or find a user. Default is :email.
-  config.strip_whitespace_keys = [:email]
+  config.strip_whitespace_keys = [ :email ]
 
   # Tell if authentication through request.params is enabled. True by default.
   # It can be set to an array that will enable params authentication only for the
@@ -97,7 +97,7 @@ Devise.setup do |config|
   # Notice that if you are skipping storage for all authentication paths, you
   # may want to disable generating routes to Devise's sessions controller by
   # passing skip: :sessions to `devise_for` in your config/routes.rb
-  config.skip_session_storage = [:http_auth]
+  config.skip_session_storage = [ :http_auth ]
 
   # By default, Devise cleans up the CSRF token on authentication to
   # avoid CSRF token fixation attacks. This means that, when using AJAX
@@ -310,4 +310,29 @@ Devise.setup do |config|
   # When set to false, does not sign a user in automatically after their password is
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
+
+  # ==> Configuration for :magic_link_authenticatable
+
+  # Need to use a custom Devise mailer in order to send magic links.
+  # If you're already using a custom mailer just have it inherit from
+  # Devise::Passwordless::Mailer instead of Devise::Mailer
+  config.mailer = "Devise::Passwordless::Mailer"
+
+  # Which algorithm to use for tokenizing magic links. See README for descriptions
+  config.passwordless_tokenizer = "SignedGlobalIDTokenizer"
+
+  # Time period after a magic login link is sent out that it will be valid for.
+  # config.passwordless_login_within = 20.minutes
+
+  # The secret key used to generate passwordless login tokens. The default value
+  # is nil, which means defer to Devise's `secret_key` config value. Changing this
+  # key will render invalid all existing passwordless login tokens. You can
+  # generate your own secret value with e.g. `rake secret`
+  # config.passwordless_secret_key = nil
+
+  # When using the :trackable module and MessageEncryptorTokenizer, set to true to
+  # consider magic link tokens generated before the user's current sign in time to
+  # be expired. In other words, each time you sign in, all existing magic links
+  # will be considered invalid.
+  # config.passwordless_expire_old_tokens_on_sign_in = false
 end

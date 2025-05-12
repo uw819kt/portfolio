@@ -1,13 +1,5 @@
 ja:
-  passwordless:
-    sessions:
-      create:
-        email_sent: ログイン認証メールを送信しました。
-      errors:
-        invalid_token: 認証キーが違います。
-      destroy:
-        signed_out: ログアウトしました。
-    mailer:
-      sign_in:
-        subject: "ログイン案内"
-
+  devise:
+    passwordless:
+      magic_link_sent: ログイン認証メールを送信しました。
+      not_found_in_database: メールアドレスが違います。

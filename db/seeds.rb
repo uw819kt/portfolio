@@ -19,73 +19,85 @@ manager = User.create!( # arima
 normal_1 = User.create!( # hamsaki
   name: "normal_1",
   email: "normal_1@example.com",
-  department: 0
+  department: 0,
+  is_admin: false
 )
 
 normal_2 = User.create!( # taguti
   name: "normal_2",
   email: "normal_2@example.com",
-  department: 1
+  department: 1,
+  is_admin: false
 )
 
 normal_3 = User.create!( # etou
   name: "normal_3",
   email: "normal_3@example.com",
-  department: 1
+  department: 1,
+  is_admin: false
 )
 
 normal_4 = User.create!( # akimoto
   name: "normal_4",
   email: "normal_4@example.com",
-  department: 2
+  department: 2,
+  is_admin: false
 )
 
 normal_5 = User.create!( # isihara
   name: "normal_5",
   email: "normal_5@example.com",
-  department: 3
+  department: 3,
+  is_admin: false
 )
 
 normal_6 = User.create!( # matubara
   name: "normal_6",
   email: "normal_6@example.com",
-  department: 1
+  department: 1,
+  is_admin: false
 )
 
 normal_7 = User.create!( # kawata
   name: "normal_7",
   email: "normal_7@example.com",
-  department: 3
+  department: 3,
+  is_admin: false
 )
 
 normal_8 = User.create!( # tutiya
   name: "normal_8",
   email: "normal_8@example.com",
-  department: 3
+  department: 3,
+  is_admin: false
 )
 
 normal_9 = User.create!( # hurutani
   name: "normal_9",
   email: "normal_9@example.com",
-  department: 4
+  department: 4,
+  is_admin: false
 )
 
 normal_10 = User.create!( # simizu
   name: "normal_10",
-  email: "normal_9@example.com",
-  department: 4
+  email: "normal_10@example.com",
+  department: 4,
+  is_admin: false
 )
 
 normal_11 = User.create!( # asano
   name: "normal_11",
   email: "normal_11@example.com",
-  department: 5
+  department: 5,
+  is_admin: false
 )
 
 normal_12 = User.create!( # nakayama
   name: "normal_12",
   email: "normal_12@example.com",
-  department: 5
+  department: 5,
+  is_admin: false
 )
 
 manager_car = Car.create( # arima

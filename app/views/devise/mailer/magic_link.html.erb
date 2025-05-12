@@ -1,0 +1,7 @@
+<p>【ログインの案内】</p>
+
+<p>下記のリンクからログインできます：</p>
+
+<p><%= link_to "ログインする", magic_link_url(@resource, @scope_name => {email: @resource.email, token: @token, remember_me: @remember_me}) %></p>
+
+<p>リンクの有効期限は<%= (Devise.passwordless_login_within / 60).to_i %>分です。</p>          

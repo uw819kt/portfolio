@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  devise_for :users,
+    controllers: { sessions: "devise/passwordless/sessions" }
+
   scope :admins do
     resources :users do
       resources :cars, only: [ :new, :create, :update ]
