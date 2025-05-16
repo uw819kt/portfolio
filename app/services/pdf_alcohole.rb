@@ -15,7 +15,7 @@ class PdfAlcohole < Prawn::Document
     @af_logs = af_logs
 
     text "酒気帯び確認記録表", size: 20, align: :center
-    move_down 20
+    move_down 10
 
     text "興和電気株式会社", size: 10, align: :right
     move_down 10
@@ -91,8 +91,8 @@ class PdfAlcohole < Prawn::Document
       t.row(0).font_style = :bold
       t.row(0).background_color = "DDDDFF"
       t.row(1).background_color = "EEEEEE"
-      t.row(0).align = :center
-      t.row(1).align = :center
+      t.row(0..1).align = :center
+      [ 1, 3, 4, 5, 6, 10, 11, 12, 13 ].each { |i| t.column(i).align = :center }
       t.header = true
       { 0 => 50, 1 => 75, 2 => 60, 3 => 30, 5 => 45, 9 => 60, 10 => 30, 12 => 45 }.each { |i, w| t.column(i).width = w }
     end

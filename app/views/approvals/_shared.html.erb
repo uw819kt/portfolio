@@ -10,6 +10,10 @@
   </div>
 </div>
 
+<% if can? :manage, Approval %>
+  <%= link_to "PDFを出力", paid_leave_pdf_paid_leave_index_path(format: "pdf"), class: 'btn btn-outline-primary mt-2 mb-2' %>
+<% end %>
+
 <table class="table table-bordered mb-0">
   <tbody>
       <tr>

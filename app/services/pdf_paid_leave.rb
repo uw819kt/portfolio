@@ -53,7 +53,7 @@ class PdfPaidLeave < Prawn::Document
       ]
     ], cell_style: { size: 10, padding: [ 5, 3 ] },
        position: :center,
-       column_widths: [ 80, 65, 80, 65, 80, 80 ] # 合計 = 450pt
+       column_widths: [ 85, 70, 85, 70, 85, 85 ] # 合計 = 480pt
        ) do |t|
          t.cells.border_width = 1
     end
@@ -77,13 +77,13 @@ class PdfPaidLeave < Prawn::Document
     end
 
     table([ header ] + body, header: true,
-    position: :center,
-    cell_style: { size: 9, padding: [ 4, 2 ] },
-    column_widths: [ 20, 75, 75, 40, 30, 30, 60, 60, 60 ] # 合計 = 450pt
-    ) do |t|
-      t.row(0).font_style = :bold
-      t.row(0).background_color = "DDDDFF"
-      t.columns(0..8).align = :center
+      position: :center,
+      cell_style: { size: 9, padding: [ 10, 2 ], min_height: 35 },
+      column_widths: [ 25, 75, 75, 35, 40, 40, 70, 60, 60 ] # 合計 = 450pt
+      ) do |t|
+        t.row(0).font_style = :bold
+        t.row(0).background_color = "DDDDFF"
+        t.columns(0..8).align = :center
     end
   end
 end
