@@ -4,4 +4,10 @@ FactoryBot.define do
     private_car { "" }
     association :user
   end
+
+  factory :car_2, class: "car" do
+    company_car { "11dle55Ac" }
+    private_car { "" }
+    association :user
+  end
 end

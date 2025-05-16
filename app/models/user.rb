@@ -12,6 +12,8 @@ class User < ApplicationRecord
   validates :name, :department, presence: true
   validates :name, :email, length: { maximum: 255 }
   validates :email, presence: true, uniqueness: { case_sensitive: false }
+  validates :is_admin, inclusion: { in: [ true, false ] }
+
 
   enum :department, {
     sales: 0,

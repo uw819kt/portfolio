@@ -2,13 +2,13 @@ require 'rails_helper'
 # bundle exec rspec spec/models/user_spec.rb
 
 RSpec.describe User, type: :model do
-  it { should have_one(:paid_leave) }
-  it { should have_many(:requests) }
-  it { should have_one(:grant) }
-  it { should have_many(:approvals) }
-  it { should have_one(:car) }
-  it { should have_many(:drive_be_logs) }
-  it { should have_many(:drive_af_logs) }
+  it { should have_one(:paid_leave).dependent(:destroy) }
+  it { should have_many(:requests).dependent(:destroy) }
+  it { should have_one(:grant).dependent(:destroy) }
+  it { should have_many(:approvals).dependent(:destroy) }
+  it { should have_one(:car).dependent(:destroy) }
+  it { should have_many(:drive_be_logs).dependent(:destroy) }
+  it { should have_many(:drive_af_logs).dependent(:destroy) }
 
   it { is_expected.to validate_presence_of :name }
   it { is_expected.to validate_presence_of :email }

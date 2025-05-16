@@ -3,9 +3,9 @@ require 'rails_helper'
 
 RSpec.describe PaidLeave, type: :model do
   it { should belong_to(:user) }
-  # it { should belong_to(:grant) }
-  it { should have_many(:requests) }
-  it { should have_many(:approvals) }
+  it { should have_one(:grant).dependent(:destroy) }
+  it { should have_many(:requests).dependent(:destroy) }
+  it { should have_many(:approvals).dependent(:destroy) }
 
   it { is_expected.to validate_presence_of :joining_date }
   it { is_expected.to validate_presence_of :base_date }
