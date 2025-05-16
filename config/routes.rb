@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
   resources :alcohol_logs, only: [ :index, :show ] do
     collection do
-      resources :pdf_outputs, only: :index
+      resources :pdf_alcohole, only: :index
       resources :drive_be_logs, only: [ :create, :new, :edit, :update ]
       resources :drive_af_logs, only: [ :create, :new, :edit, :update ]
     end

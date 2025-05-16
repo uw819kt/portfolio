@@ -6,6 +6,8 @@
   <%= f.submit '検索', class: 'btn btn-outline-primary mt-2 mb-2' %>
 <% end %>
 
+<%= link_to "PDFを出力", pdf_alcohole_index_path(format: "pdf", q: { check_time_eq: params.dig(:q, :check_time_eq) }), class: 'btn btn-outline-primary mt-2 mb-2' %>
+
 <h5><%= l(
   params.dig(:q, :check_time_eq).present? ?
   Date.parse(params.dig(:q, :check_time_eq)) :
