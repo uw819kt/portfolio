@@ -25,7 +25,7 @@ class PdfAlcohole < Prawn::Document
 
     table_data = []
 
-    # ヘッダー1行目（列結合はspan使えないので工夫が必要）
+    # ヘッダー1行目
     table_data << [
       { content: "運転者・車両", colspan: 2 },
       { content: "運転前", colspan: 7 },
@@ -94,14 +94,7 @@ class PdfAlcohole < Prawn::Document
       t.row(0).align = :center
       t.row(1).align = :center
       t.header = true
-      t.column(0).width = 50
-      t.column(1).width = 75
-      t.column(2).width = 60
-      t.column(3).width = 30
-      t.column(5).width = 45
-      t.column(9).width = 60
-      t.column(10).width = 30
-      t.column(12).width = 45
+      { 0 => 50, 1 => 75, 2 => 60, 3 => 30, 5 => 45, 9 => 60, 10 => 30, 12 => 45 }.each { |i, w| t.column(i).width = w }
     end
   end
 end

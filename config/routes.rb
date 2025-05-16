@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   resources :paid_leaves, path: "paid_leaves", as: "paid_leaves" do
     resources :approvals, only: [ :new, :create, :edit, :update, :show ]
+    resources :pdf_paid_leave, only: :index
   end
 
   resources :paid_leaves, only: [ :index, :edit, :update ]
