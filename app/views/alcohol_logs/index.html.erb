@@ -47,7 +47,7 @@
       <td><%= "安全運転管理者" %></td>
     </tr>
 
-    <% User.includes(:drive_be_logs, :drive_af_logs).each do |user| %>
+    <% User.all.each do |user| %>
       <% be_log = @be_logs[user.id] %>
       <% af_log = @af_logs[user.id] %>
     

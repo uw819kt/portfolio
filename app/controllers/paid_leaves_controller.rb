@@ -3,7 +3,7 @@ class PaidLeavesController < ApplicationController
   before_action :set_paid_leave, only: %i[ show edit update ]
 
   def index
-    @paid_leaves = PaidLeave.joins(:grant).includes(:approvals, :requests)
+    @paid_leaves = PaidLeave.includes(:user, :grant).order("paid_leaves.joining_date ASC")
     @unapproved_request_count = Request.unapproved_count
   end
 
