@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   resources :paid_leaves, path: "paid_leaves", as: "paid_leaves" do
     resources :approvals, only: [ :new, :create, :edit, :update, :show ]
+    resources :pdf_paid_leave, only: :index
   end
 
   resources :paid_leaves, only: [ :index, :edit, :update ]
@@ -23,6 +24,7 @@ Rails.application.routes.draw do
 
   resources :alcohol_logs, only: [ :index, :show ] do
     collection do
+      resources :pdf_alcohole, only: :index
       resources :drive_be_logs, only: [ :create, :new, :edit, :update ]
       resources :drive_af_logs, only: [ :create, :new, :edit, :update ]
     end
