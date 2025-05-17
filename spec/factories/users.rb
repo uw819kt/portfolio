@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :user do
     name { "manager" }
-    email { "manager#{SecureRandom.hex(1)}@example.com" }
+    sequence(:email) { |n| "manager#{n}@example.com" }
     department { 0 }
   end
 end
