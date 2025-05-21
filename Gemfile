@@ -78,4 +78,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver", "4.31.0"
   gem "shoulda-matchers"
+  gem "capybara-email"
 end

@@ -2,6 +2,22 @@ require 'rails_helper'
 # bundle exec rspec spec/requests/pdf_alcohole_spec.rb
 
 RSpec.describe "PdfAlcohole", type: :request do
+  let!(:user) { create(:user) }
+
+  # マジックリンクを送信し、リンクを取得するための共通のメソッド
+  def send_magic_link_and_login(user)
+    # マジックリンクを送信
+    post user_magic_link_path, params: { user: { email: user.email } }
+
+    # メールを開き、リンクを取得
+    open_email(user.email)
+    expect(current_email).to have_subject("ログイン用リンクのご案内")
+    magic_link = current_email.body.match(/href="([^"]*)/)[1]
+
+    # マジックリンクをたどってログイン
+    get magic_link
+  end
+
   describe "GET /pdf_alcohole (HTML)" do
     context "未ログインの場合" do
       it "HTMLリクエストでログインページにリダイレクトされる" do
@@ -12,19 +28,9 @@ RSpec.describe "PdfAlcohole", type: :request do
     end
 
     context "管理者としてログインしている場合" do
-      let!(:user) { create(:user) }
-
-      before do
-        post new_user_session_path, params: { user: { email: user.email } }
-
-        open_email(user.email)
-        expect(current_email).to have_subject("ログイン用リンクのご案内") # メールの件名を確認
-        magic_link = current_email.body.match(/href="([^"]*)/)[1]
-
-        get magic_link
-      end
-
       it "HTMLリクエストで200 okを返す" do
+        send_magic_link_and_login(user)
+
         get pdf_alcohole_index_path
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to include("text/html")
