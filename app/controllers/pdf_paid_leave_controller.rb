@@ -1,4 +1,6 @@
 class PdfPaidLeaveController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     respond_to do |format|
       @paid_leave = PaidLeave.find(params[:paid_leave_id])
