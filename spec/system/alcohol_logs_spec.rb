@@ -26,11 +26,31 @@ RSpec.describe '酒気帯び記録機能', type: :system do
         expect(page).to have_content(be_log.check_time.strftime("%m/%d %H:%M"))
       end
     end
+
+    context 'ログイン後酒気帯び一覧ページで日時検索した場合' do
+      it '検索した日時の一覧画面が表示される' do
+        login(user)
+        visit alcohol_logs_path(q: { check_time_eq: Time.zone.today.to_s })
+
+        expect(page).to have_content("酒気帯び確認記録表")
+        expect(page).to have_content(user.name)
+        expect(page).to have_content(be_log.check_time.strftime("%m/%d %H:%M"))
+        expect(page).not_to have_content(Time.current)
+      end
+    end
   end
 
   describe '詳細表示機能（show）' do
-    context 'ログイン後酒気帯び一覧ページにアクセスした場合' do
+    context 'ログイン後酒気帯び詳細ページにアクセスした場合' do
       it '詳細画面が表示される' do
+        login(user)
+        visit alcohol_logs_path
+        click_link "詳細", match: :first
+
+        expect(page).to have_content("酒気帯び確認記録表（個人）")
+        expect(page).to have_content(user.name)
+        expect(page).to have_content(be_log.check_time.strftime("%m/%d %H:%M"))
+        expect(page).to have_content(af_log.check_time.strftime("%m/%d %H:%M"))
       end
     end
   end
