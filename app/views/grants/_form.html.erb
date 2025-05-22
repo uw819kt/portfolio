@@ -8,7 +8,7 @@
   </div>
 <% end %>
 
-<p>計算結果：<%= @granted_days %>日</p>
+<p>有給付与予定日数計算結果：<%= @granted_days %>日</p>
   <div>
     <%= form.label :granted_piece %></br>
     <%= form.number_field :granted_piece, min: 0, max: 99, required: true, class: "form-control", value: @granted_days %>
