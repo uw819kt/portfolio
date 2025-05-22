@@ -22,6 +22,7 @@ class RequestsController < ApplicationController
 
   def new
     @request = Request.new
+    @request.user = current_user
   end
 
   def create

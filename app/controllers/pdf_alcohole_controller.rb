@@ -1,4 +1,6 @@
 class PdfAlcoholeController < ApplicationController
+  before_action :authenticate_user!
+
   def index # PDF出力を行う処理
     respond_to do |format|
       format.html

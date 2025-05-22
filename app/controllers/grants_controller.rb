@@ -20,22 +20,21 @@ class GrantsController < ApplicationController
   def create
     @user = User.find(params[:user_id])
     @paid_leave = @user.paid_leave
-    @grant = @user.build_grant(grant_params.merge(paid_leave_id: @paid_leave.id))
 
-    # 有給付与日数をUserモデルのメソッドで計算
-    @grant.granted_piece = @user.calculated_granted_days(@paid_leave)
+    @granted_days = @user.calculated_granted_days(@paid_leave)
+    @grant = @user.build_grant(grant_params.merge(paid_leave_id: @paid_leave.id, granted_piece: @granted_days))
 
     if @grant.save
       flash[:notice] = "有給休暇付与情報を登録しました。"
       redirect_to user_path(@user)
     else
-      @user.destroy if @user.persisted? == false
-      flash.now[:alert] = "有給休暇付与情報の登録に失敗しました。最初からやり直してください。"
-      redirect_to new_user_path
+      flash.now[:alert] = "有給休暇付与情報の登録に失敗しました。"
+      render :new, status: :unprocessable_entity
     end
   end
 
   def edit
+    @granted_days =  @user.calculated_granted_days(@user.paid_leave)
   end
 
   def update

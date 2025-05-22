@@ -11,7 +11,7 @@ class DriveAfLogsController < ApplicationController
     @drive_af_log.check_time = Time.zone.now
 
     if @drive_af_log.save
-      redirect_to alcohol_logs_path, notice: "運転前の記録を登録しました"
+      redirect_to alcohol_logs_path, notice: "運転後の記録を登録しました"
     else
       render :new, status: :unprocessable_entity
     end

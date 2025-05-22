@@ -45,7 +45,7 @@ class ApprovalsController < ApplicationController
     @approval_count = Approval.where(paid_leave_id:  @paid_leave.id, paid_applicable: true).count
     @achievements = (@grant.granted_piece) - (@approval_count)
 
-    if @approval
+    if @approval.exists?
       render :show
     else
       flash[:notice] = "現在承認済の有給休暇申請はありません。"
@@ -54,16 +54,17 @@ class ApprovalsController < ApplicationController
   end
 
   def edit
-    @paid_leave = PaidLeave.find(params[:id])
+    @paid_leave = PaidLeave.find(params[:paid_leave_id])
     @approval = Approval.find(params[:id])
   end
 
   def update
+    @paid_leave = PaidLeave.find(params[:paid_leave_id])
     @approval = Approval.find(params[:id])
 
     if @approval.update(approval_params)
       flash[:notice] = "有給休暇承認情報を更新しました。"
-      redirect_to request_path(@approval.paid_leave_id)
+      redirect_to paid_leave_approval_path(@paid_leave, @approval)
     else
       flash[:alert] = "有給休暇承認情報を更新出来ませんでした。"
       render :edit, status: :unprocessable_entity
