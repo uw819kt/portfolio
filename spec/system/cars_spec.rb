@@ -13,7 +13,7 @@ RSpec.describe '車両記録機能', type: :system do
     visit CGI.unescapeHTML(magic_link)
   end
 
-  describe '車両番号登録機能' do
+  describe '車両番号登録・更新機能' do
     context 'ログイン後社員情報登録ページの入力フォームより' do
       it '正常に登録できる' do
         login(user)
