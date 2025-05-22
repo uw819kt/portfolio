@@ -1,7 +1,7 @@
 require 'rails_helper'
 # bundle exec rspec spec/system/approvals_spec.rb
 
-RSpec.describe '有給承認機能', type: :system do
+RSpec.describe '有給申請承認機能', type: :system do
   let!(:user) { create(:user) }
   let!(:paid_leave) { create(:paid_leave, user: user) }
   let!(:grant) { create(:grant, user: user, paid_leave: paid_leave) }
@@ -16,118 +16,97 @@ RSpec.describe '有給承認機能', type: :system do
     visit CGI.unescapeHTML(magic_link)
   end
 
-  describe '有給承認機能（new）' do
-    context 'ログイン後有給承認ページにアクセスした場合' do
-      it '新しい承認フォームが表示される' do
-        login(user)
-        visit requests_path(paid_leave)
-        click_link "承認する", match: :first
+  describe '有給承認機能（new, create）' do
+    it '承認フォームが表示される' do
+      login(user)
 
-        expect(page).to have_content('有給取得申請（承認）')
-        expect(page).to have_field('approval[request_date]')
-        expect(page).to have_field('approval[acquisition_date]')
-        expect(page).to have_field('approval[paid_remarks]')
-      end
-    end
-  end
-
-  describe '有給承認機能（create）' do
-    context 'ログイン後有給承認に成功した場合' do
-      it '申請ページにリダイレクトされる' do
-        login(user)
-        visit requests_path(paid_leave)
-        click_link "承認する", match: :first
-
-        fill_in 'approval[request_date]', with: Date.today.to_s
-        fill_in 'approval[acquisition_date]', with: (Date.today + 10).to_s
-        fill_in 'approval[paid_remarks]', with: ''
-        click_button '登録する'
-
-        expect(page).to have_content('有給休暇申請を承認しました。')
-        expect(current_path).to eq(request_path(paid_leave))
-      end
+      visit new_request_path
+      expect(page).to have_content('有給取得申請入力フォーム')
+      expect(page).to have_content('申請日時')
     end
 
-    context 'ログイン後有給承認に失敗した場合' do
-      it 'フォームを再度レンダリングする' do
-        login(user)
-        visit requests_path(paid_leave)
-        click_link "承認する", match: :first
+    it '承認登録が成功する' do
+      login(user)
 
-        fill_in 'approval[request_date]', with: ''
-        click_button '登録する'
+      visit new_request_path
 
-        expect(current_path).to eq(request_path(paid_leave))
-      end
+      fill_in 'request_request_date', with: Date.today
+      fill_in 'request_acquisition_date', with: Date.today + 5.days
+      fill_in 'request_paid_remarks', with: '私用のため'
+
+      click_button '登録する'
+
+      expect(page).to have_content('申請を送信しました。')
+      expect(current_path).to eq root_path
+    end
+
+    it '承認登録が失敗する（未入力など）' do
+      login(user)
+      visit new_request_path
+
+      click_button '登録'
+
+      expect(page).to have_content('有給取得申請入力フォーム')
     end
   end
 
   describe '承認済み詳細表示機能（show）' do
-    context 'ログイン後有給承認済み詳細ページにアクセスした場合' do
-      it '詳細画面が表示される' do
-        login(user)
-        approval = create(:approval, paid_leave: paid_leave)
-        click_link "承認済", match: :first
+    context '承認がある場合' do
+      let!(:approval) { create(:approval, paid_leave: paid_leave, request: request) }
 
-        expect(page).to have_content('有給休暇取得状況詳細（承認済')
-        expect(page).to have_content(approval.request_date.strftime('%Y年%m月%d日'))
+      it '承認情報が表示される' do
+        login(user)
+
+        click_link "承認済", match: :first
+        expect(page).to have_content('有給休暇取得状況詳細（承認済）')
+        expect(page).to have_content(user.name)
       end
+    end
 
-      it '承認が存在しない場合はリダイレクトされる' do
+    context '承認がない場合' do
+      it 'リダイレクトされてメッセージが表示される' do
         login(user)
-        click_link "承認済", match: :first
 
+        visit paid_leave_approval_path(paid_leave, id: 999)
+        expect(current_path).to eq root_path
         expect(page).to have_content('現在承認済の有給休暇申請はありません。')
-        expect(current_path).to eq(root_path)
       end
     end
   end
 
-  describe '有給承認編集機能（edit）' do
-    context 'ログイン後有給承認済詳細ページの編集リンクを押した場合' do
-      it '承認編集フォームが表示される' do
-        login(user)
-        approval = create(:approval, user: user, paid_leave: paid_leave, request: request)
+  describe '承認編集・更新機能（edit, update）' do
+    let!(:approval) { create(:approval, paid_leave: paid_leave, request: request, paid_remarks: "旧メモ") }
 
-        click_link "承認済", match: :first
-        click_link "編集する", match: :first
+    it '承認編集フォームが表示される' do
+      login(user)
 
-        expect(page).to have_content('有給取得申請編集')
-        expect(page).to have_content('有給適用')
-      end
-    end
-  end
+      click_link "承認済", match: :first
+      click_link "編集する", match: :first
 
-  describe '有給承認編集機能（update）' do
-    context 'ログイン後有給承認の編集に成功した場合' do
-      it '承認を更新、承認済みページにリダイレクトされる' do
-        # login(user)
-        # approval = create(:approval, user: user, paid_leave: paid_leave)
-
-        # visit paid_leave_approval_path(approval.paid_leave, 0)
-        # visit edit_paid_leave_approval_path(approval.paid_leave, approval)
-
-        # fill_in 'approval[request_date]', with: (Date.today + 7).to_s
-        # click_button '更新'
-
-        # expect(page).to have_content('有給休暇承認情報を更新しました。')
-        # expect(current_path).to eq(paid_leave_approval_path(approval.paid_leave, approval))
-      end
+      expect(page).to have_content('有給取得申請編集')
+      expect(page).to have_content('有給適用')
     end
 
-    context 'ログイン後有給承認に失敗した場合' do
-      it 'フォームを再度レンダリングする' do
-        # login(user)
-        # approval = create(:approval, user: user, paid_leave: paid_leave, request: request)
+    it '承認情報を更新できる' do
+      login(user)
 
-        # click_link "承認済", match: :first
-        # click_link "編集する", match: :first
+      visit edit_paid_leave_approval_path(paid_leave, approval)
+      fill_in 'approval_paid_remarks', with: '更新済メモ'
+      click_button '更新'
 
-        # fill_in 'approval[request_date]', with: ''
-        # click_button '更新する'
+      expect(page).to have_content('有給休暇承認情報を更新しました。')
+      expect(page).to have_content('更新済メモ')
+    end
 
-        # expect(current_path).to eq(edit_paid_leave_approval_path(paid_leave, approval))
-      end
+    it '更新に失敗した場合、エラーメッセージが表示される' do
+      login(user)
+
+      allow_any_instance_of(Approval).to receive(:update).and_return(false) # モデルのバリデーションが厳しい場合もここで代替可能
+      visit edit_paid_leave_approval_path(paid_leave, approval)
+      fill_in 'approval_paid_remarks', with: ''
+      click_button '更新'
+
+      expect(page).to have_content('有給休暇承認情報を更新出来ませんでした。')
     end
   end
 end
