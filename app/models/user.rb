@@ -28,6 +28,24 @@ class User < ApplicationRecord
     is_admin
   end
 
+  def self.guest_general
+    create!(
+      name: "ゲストユーザー",
+      email: "guest_#{SecureRandom.hex(6)}@example.com",
+      department: 5,
+      is_admin: false
+    )
+  end
+
+  def self.guest_admin
+    create!(
+      name: "ゲスト管理者",
+      email: "guest_#{SecureRandom.hex(6)}@example.com",
+      department: 5,
+      is_admin: true
+    )
+  end
+
   def calculated_granted_days(paid_leave) # 付与日数計算
     if paid_leave.part_time?
       part_time_plan(paid_leave.classification)

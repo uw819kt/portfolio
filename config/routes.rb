@@ -2,6 +2,12 @@ Rails.application.routes.draw do
   devise_for :users,
     controllers: { sessions: "devise/passwordless/sessions" }
 
+  # ゲストログイン用ルート
+  devise_scope :user do
+    post "users/guest_sign_in", to: "users/guest_sessions#guest_sign_in"
+    post "users/guest_admin_sign_in", to: "users/guest_sessions#guest_admin_sign_in"
+  end
+
   scope :admins do
     resources :users do
       resources :cars, only: [ :new, :create, :update ]
