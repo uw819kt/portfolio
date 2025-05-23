@@ -1,3 +1,4 @@
+require "set" # 重複しないコレクションを作る
 # This file should ensure the existence of records required to run the application in every environment (production,
 # development, test). The code here should be idempotent so that it can be executed at any point in every environment.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
@@ -8,345 +9,215 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-
-manager = User.create!( # arima
+# admin
+User.create!(
   name: "manager",
   email: "manager@example.com",
   department: 0,
   is_admin: true
 )
 
-normal_1 = User.create!( # hamsaki
-  name: "normal_1",
-  email: "normal_1@example.com",
-  department: 0,
-  is_admin: false
-)
+15.times do |n|
+  User.create!(
+    name: "normal_#{n + 1}",
+    email: "normal#{n + 1}@example.com",
+    department: rand(0..5),
+    is_admin: false
+  )
+end
 
-normal_2 = User.create!( # taguti
-  name: "normal_2",
-  email: "normal_2@example.com",
-  department: 1,
-  is_admin: false
-)
 
-normal_3 = User.create!( # etou
-  name: "normal_3",
-  email: "normal_3@example.com",
-  department: 1,
-  is_admin: false
-)
+user_ids = User.pluck(:id)
+user_ids_copy = user_ids.shuffle.dup
 
-normal_4 = User.create!( # akimoto
-  name: "normal_4",
-  email: "normal_4@example.com",
-  department: 2,
-  is_admin: false
-)
+3.times do |n|
+  classification_number = "%03d" % rand(0..999)
+  serial_number = "%04d" % rand(0..9999)
+  user_ids_copy = user_ids.shuffle.dup
+  user_id = user_ids_copy.shift
 
-normal_5 = User.create!( # isihara
-  name: "normal_5",
-  email: "normal_5@example.com",
-  department: 3,
-  is_admin: false
-)
+  Car.create!(
+    company_car: "下関#{classification_number}た#{serial_number}",
+    private_car: "",
+    user_id: user_id
+  )
+end
 
-normal_6 = User.create!( # matubara
-  name: "normal_6",
-  email: "normal_6@example.com",
-  department: 1,
-  is_admin: false
-)
+3.times do |n|
+  classification_number = "%03d" % rand(0..999)
+  serial_number = "%04d" % rand(0..9999)
+  user_ids_copy = user_ids.shuffle.dup
+  user_id = user_ids_copy.shift
 
-normal_7 = User.create!( # kawata
-  name: "normal_7",
-  email: "normal_7@example.com",
-  department: 3,
-  is_admin: false
-)
+  Car.create!(
+    company_car: "",
+    private_car: "下関#{classification_number}み#{serial_number}",
+    user_id: user_id
+  )
+end
 
-normal_8 = User.create!( # tutiya
-  name: "normal_8",
-  email: "normal_8@example.com",
-  department: 3,
-  is_admin: false
-)
+# フルタイム社員
+13.times do |n|
+  user_ids_copy = user_ids.shuffle.dup
+  user_id = user_ids_copy.shift
 
-normal_9 = User.create!( # hurutani
-  name: "normal_9",
-  email: "normal_9@example.com",
-  department: 4,
-  is_admin: false
-)
+  PaidLeave.create!(
+    joining_date: rand(3..10).years.ago.change(month: 4, day: 1),
+    base_date: Date.current.change(month: 4, day: 1),
+    part_time: false,
+    classification: 0,
+    user_id: user_id
+  )
+end
 
-normal_10 = User.create!( # simizu
-  name: "normal_10",
-  email: "normal_10@example.com",
-  department: 4,
-  is_admin: false
-)
+# パートタイム社員
+3.times do |n|
+  user_ids_copy = user_ids.shuffle.dup
+  user_id = user_ids_copy.shift
 
-normal_11 = User.create!( # asano
-  name: "normal_11",
-  email: "normal_11@example.com",
-  department: 5,
-  is_admin: false
-)
+  PaidLeave.create!(
+    joining_date: rand(3..10).years.ago.change(month: 4, day: 1),
+    base_date: Date.current.change(month: 4, day: 1),
+    part_time: true,
+    classification: rand(1..4),
+    user_id: user_id
+  )
+end
 
-normal_12 = User.create!( # nakayama
-  name: "normal_12",
-  email: "normal_12@example.com",
-  department: 5,
-  is_admin: false
-)
+13.times do
+  user_ids_copy = user_ids.shuffle.dup
+  user_id = user_ids_copy.shift
+  paid_leave_id = PaidLeave.find_by(user_id: user_id)&.id
+  next unless paid_leave_id
 
-manager_car = Car.create( # arima
-  company_car: "下関430た5533",
-  private_car: "",
-  user_id: manager.id
-)
+  Grant.create!(
+    granted_piece: rand(1..20),
+    granted_day: Date.current.change(month: 4, day: 1),
+    user_id: user_id,
+    paid_leave_id: paid_leave_id
+  )
+end
 
-normal_car_1 = Car.create( # hamasaki
-  company_car: "",
-  private_car: "下関430つ5533",
-  user_id: normal_1.id
-)
+# 普通の有給
+10.times do |n|
+  start_date = Date.new(Date.current.year, 4, 1)
+  end_date = Date.new(Date.current.year + 1, 3, 31)
+  random_date = rand(start_date..end_date)
 
-normal_car_2 = Car.create( # taguti
-  company_car: "",
-  private_car: "下関430と5533",
-  user_id: normal_2.id
-)
+  begin_date = random_date
+  limit_date = random_date.next_month
+  random_within_month = rand(begin_date..limit_date)
 
-normal_car_3 = Car.create( # etou
-  company_car: "",
-  private_car: "下関430て5533",
-  user_id: normal_3.id
-)
+  user_id = user_ids_copy.shift
+  paid_leave_id = PaidLeave.find_by(user_id: user_id)&.id
+  next unless paid_leave_id
 
-normal_car_4 = Car.create( # akimoto
-  company_car: "",
-  private_car: "",
-  user_id: normal_4.id
-)
+  Request.create!(
+    request_date: random_date,
+    acquisition_date: random_within_month,
+    user_id: user_ids.sample,
+    paid_leave_id: paid_leave_id,
+    paid_remarks: ""
+  )
+end
 
-normal_car_5 = Car.create( # isihara
-  company_car: "",
-  private_car: "",
-  user_id: normal_5.id
-)
+# 特別有給
+5.times do |n|
+  start_date = Date.new(Date.current.year, 4, 1)
+  end_date = Date.new(Date.current.year + 1, 3, 31)
+  random_date = rand(start_date..end_date)
 
-normal_car_6 = Car.create( # matubara
-  company_car: "",
-  private_car: "下関430な5533",
-  user_id: normal_6.id
-)
+  begin_date = random_date
+  limit_date = random_date.next_month
+  random_within_month = rand(begin_date..limit_date)
 
-normal_car_7 = Car.create( # kawata
-  company_car: "",
-  private_car: "",
-  user_id: normal_7.id
-)
+  user_id = user_ids_copy.shift
+  paid_leave_id = PaidLeave.find_by(user_id: user_id)&.id
+  next unless paid_leave_id
 
-normal_car_8 = Car.create( # tutiya
-  company_car: "",
-  private_car: "",
-  user_id: normal_8.id
-)
+  Request.create!(
+    request_date: random_date,
+    acquisition_date: random_within_month,
+    user_id: user_ids.sample,
+    paid_leave_id: paid_leave_id,
+    paid_remarks: "特別休暇"
+  )
+end
 
-normal_car_9 = Car.create( # hurutani
-  company_car: "",
-  private_car: "",
-  user_id: normal_9.id
-)
+car_ids = Car.pluck(:id)
+existing_logs = Set.new
 
-normal_car_10 = Car.create( # shimizu
-  company_car: "",
-  private_car: "",
-  user_id: normal_10.id
-)
+# 運転前
+45.times do
+  user_id = user_ids.sample
+  date = rand(Date.current.beginning_of_month..Date.current.end_of_month)
 
-normal_car_11 = Car.create( # asano
-  company_car: "下関483あ5533",
-  private_car: "",
-  user_id: normal_11.id
-)
+  # 同じユーザーで同じ日付のレコードがすでにあればスキップ
+  next if DriveBeLog.exists?(user_id: user_id, check_time: date..date.end_of_day)
 
-normal_car_12 = Car.create( # nakayama
-  company_car: "",
-  private_car: "",
-  user_id: normal_12.id
-)
+  DriveBeLog.create!(
+    check_time: date,
+    confirmation: rand(0..2),
+    detector_used: [ true, false ].sample,
+    result: rand(0.0..0.10),
+    condition: rand(0..2),
+    log_remarks: "",
+    car_id: car_ids.sample,
+    user_id: user_id
+  )
+end
 
-manager_pl_1 = PaidLeave.create!( # arima
-  joining_date: 7.years.ago.change(month: 4, day: 1),
-  base_date: Date.current.change(month: 4, day: 1),
-  part_time: false,
-  classification: 0,
-  user_id: manager.id
-)
+5.times do
+  user_id = user_ids.sample
+  date = rand(Date.current.beginning_of_month..Date.current.end_of_month)
 
-normal_pl_1 = PaidLeave.create!( # hamasaki
-  joining_date: 7.years.ago.change(month: 4, day: 1),
-  base_date: Date.current.change(month: 4, day: 1),
-  part_time: false,
-  classification: 0,
-  user_id: normal_1.id
-)
+  next if DriveBeLog.exists?(user_id: user_id, check_time: date..date.end_of_day)
 
-normal_pl_2 = PaidLeave.create( # taguti
-  joining_date: 7.years.ago.change(month: 4, day: 1),
-  base_date: Date.current.change(month: 4, day: 1),
-  part_time: false,
-  classification: 0,
-  user_id: normal_2.id
-)
+  DriveBeLog.create!(
+    check_time: date,
+    confirmation: rand(0..2),
+    detector_used: [ true, false ].sample,
+    result: rand(0.0..0.10),
+    condition: rand(0..2),
+    log_remarks: "体調不良",
+    car_id: car_ids.sample,
+    user_id: user_id
+  )
+end
 
-normal_pl_3 = PaidLeave.create( # etou
-  joining_date: 7.years.ago.change(month: 4, day: 1),
-  base_date: Date.current.change(month: 4, day: 1),
-  part_time: false,
-  classification: 0,
-  user_id: normal_3.id
-)
+# 運転後
+45.times do
+  user_id = user_ids.sample
+  date = rand(Date.current.beginning_of_month..Date.current.end_of_month)
 
-normal_pl_4 = PaidLeave.create( # akimoto
-  joining_date: 7.years.ago.change(month: 4, day: 1),
-  base_date: Date.current.change(month: 4, day: 1),
-  part_time: false,
-  classification: 0,
-  user_id: normal_4.id
-)
-normal_pl_5 = PaidLeave.create( # isihara
-  joining_date: 7.years.ago.change(month: 4, day: 1),
-  base_date: Date.current.change(month: 4, day: 1),
-  part_time: false,
-  classification: 0,
-  user_id: normal_5.id
-)
+  next if DriveAfLog.exists?(user_id: user_id, check_time: date..date.end_of_day)
 
-normal_pl_6 = PaidLeave.create( # matubara
-  joining_date: 7.years.ago.change(month: 4, day: 1),
-  base_date: Date.current.change(month: 4, day: 1),
-  part_time: false,
-  classification: 0,
-  user_id: normal_6.id
-)
+  DriveAfLog.create!(
+    check_time: date,
+    confirmation: rand(0..2),
+    detector_used: [ true, false ].sample,
+    result: rand(0.0..0.10),
+    condition: rand(0..2),
+    log_remarks: "",
+    car_id: car_ids.sample,
+    user_id: user_id
+  )
+end
 
-normal_pl_7 = PaidLeave.create( # kawata
-  joining_date: 7.years.ago.change(month: 4, day: 1),
-  base_date: Date.current.change(month: 4, day: 1),
-  part_time: false,
-  classification: 0,
-  user_id: normal_7.id
-)
+5.times do
+  user_id = user_ids.sample
+  date = rand(Date.current.beginning_of_month..Date.current.end_of_month)
 
-normal_pl_8 = PaidLeave.create( # tutiya
-  joining_date: 7.years.ago.change(month: 4, day: 1),
-  base_date: Date.current.change(month: 4, day: 1),
-  part_time: false,
-  classification: 0,
-  user_id: normal_8.id
-)
+  next if DriveAfLog.exists?(user_id: user_id, check_time: date..date.end_of_day)
 
-normal_pl_9 = PaidLeave.create( # hurutani
-  joining_date: 7.years.ago.change(month: 4, day: 1),
-  base_date: Date.current.change(month: 4, day: 1),
-  part_time: false,
-  classification: 0,
-  user_id: normal_9.id
-)
-
-normal_pl_10 = PaidLeave.create( # simizu
-  joining_date: 7.years.ago.change(month: 4, day: 1),
-  base_date: Date.current.change(month: 4, day: 1),
-  part_time: true,
-  classification: 1,
-  user_id: normal_10.id
-)
-
-normal_pl_11 = PaidLeave.create( # asano
-  joining_date: 7.years.ago.change(month: 4, day: 1),
-  base_date: Date.current.change(month: 4, day: 1),
-  part_time: false,
-  classification: 0,
-  user_id: normal_11.id
-)
-
-normal_pl_12 = PaidLeave.create( # nakayama
-  joining_date: 7.years.ago.change(month: 4, day: 1),
-  base_date: Date.current.change(month: 4, day: 1),
-  part_time: false,
-  classification: 0,
-  user_id: normal_12.id
-)
-
-Grant.create( # hamasaki
-  granted_piece: 20,
-  granted_day: Time.new(Date.today.year, 4, 1),
-  user_id: normal_1.id,
-  paid_leave_id: normal_pl_1.id
-)
-
-Grant.create( # taguti
-  granted_piece: 20,
-  granted_day: Time.new(Date.today.year, 4, 1),
-  user_id: normal_2.id,
-  paid_leave_id: normal_pl_2.id
-)
-
-Grant.create( # etou
-  granted_piece: 20,
-  granted_day: Time.new(Date.today.year, 4, 1),
-  user_id: normal_3.id,
-  paid_leave_id: normal_pl_3.id
-)
-
-Grant.create( # akimoto
-  granted_piece: 20,
-  granted_day: Time.new(Date.today.year, 4, 1),
-  user_id: normal_4.id,
-  paid_leave_id: normal_pl_4.id
-)
-
-Grant.create( # isihara
-  granted_piece: 20,
-  granted_day: Time.new(Date.today.year, 4, 1),
-  user_id: normal_5.id,
-  paid_leave_id: normal_pl_5.id
-)
-
-Grant.create( # matubara
-  granted_piece: 20,
-  granted_day: Time.new(Date.today.year, 4, 1),
-  user_id: normal_6.id,
-  paid_leave_id: normal_pl_6.id
-)
-
-Grant.create( # kawata
-  granted_piece: 20,
-  granted_day: Time.new(Date.today.year, 4, 1),
-  user_id: normal_7.id,
-  paid_leave_id: normal_pl_7.id
-)
-
-Grant.create( # tutiya
-  granted_piece: 20,
-  granted_day: Time.new(Date.today.year, 4, 1),
-  user_id: normal_8.id,
-  paid_leave_id: normal_pl_8.id
-)
-
-Grant.create( # hurutani
-  granted_piece: 20,
-  granted_day: Time.new(Date.today.year, 4, 1),
-  user_id: normal_9.id,
-  paid_leave_id: normal_pl_9.id
-)
-
-Grant.create( # simizu
-  granted_piece: 11,
-  granted_day: Time.new(Date.today.year, 4, 1),
-  user_id: normal_10.id,
-  paid_leave_id: normal_pl_10.id
-)
+  DriveAfLog.create!(
+    check_time: date,
+    confirmation: rand(0..2),
+    detector_used: [ true, false ].sample,
+    result: rand(0.0..0.10),
+    condition: rand(0..2),
+    log_remarks: "体調不良",
+    car_id: car_ids.sample,
+    user_id: user_id
+  )
+end
